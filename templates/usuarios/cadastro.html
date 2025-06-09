@@ -1,0 +1,50 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+{% load static %}
+<body>
+    <main class="auth-page">
+        <section class="auth-box">
+            <h1 class="auth-title">Cadastro</h1>
+            <p class="auth-description">Crie sua conta em segundos</p>
+
+            <form action="#" method="POST">
+                <div class="input-group">
+                    <label for="full-name">Nome Completo:</label>
+                    <input type="text" id="full-name" name="full_name" placeholder="João Silva" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email-signup">Email:</label>
+                    <input type="email" id="email-signup" name="email" placeholder="info@example.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password-signup">Senha:</label>
+                    <input type="password" id="password-signup" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirm-password-signup">Confirme a Senha:</label>
+                    <input type="password" id="confirm-password-signup" name="confirm_password" placeholder="Confirme a senha" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms-privacy" name="terms_privacy" required>
+                    <label for="terms-privacy">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+
+                <button type="submit" class="btn auth-btn">Create an account</button>
+            </form>
+
+            <div class="divider">ou continue com</div>
+            <div class="social-auth-buttons">
+                <a href="#" class="social-auth-btn google"><i class="fab fa-google"></i></a>
+                <a href="#" class="social-auth-btn facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <p class="auth-link">
+                Já possui uma conta? <a href="{% url 'login' %}">Login</a>
+            </p>
+        </section>
+    </main>
+</body>
+{% endblock %}
