@@ -332,4 +332,37 @@ footer {
 .social-auth-btn.facebook i { color: #3b5998; }
 
 
+.alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ff6600;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 12px;
+    max-width: 480px;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 
+    position: fixed; /* Essencial: Faz o elemento "flutuar" e permanecer na mesma posição na tela */
+    top: 40px; /* Distância do topo da tela. Ajuste este valor se quiser mais ou menos espaço */
+    left: 0; /* Define a borda esquerda para 0 */
+    right: 0; /* Define a borda direita para 0 */
+    margin: 0 auto; /* Centraliza o elemento horizontalmente quando left e right estão definidos */
+    z-index: 1000;
+}
+
+.alert button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: opacity 0.2s ease;
+}
+
+.alert button:hover {
+    opacity: 0.7;
+}

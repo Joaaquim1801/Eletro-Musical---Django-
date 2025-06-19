@@ -1,3 +1,6 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+{% load socialaccount %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -11,37 +14,27 @@
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-    <header>
-        <div class="logo">Eletro Musical</div>
-        <nav>
-            <ul>
-                <li><a href="{% url 'login' %}">Entrar</a></li>
-                <li><a href="{% url 'landing' %}">Início</a></li>
-                <li><a href="#">Produtos</a></li>
-                <li><a href="#">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
-
+    {% include 'partials/_errors.html' %}
     <main class="auth-page">
         <div class="auth-box">
             <h2 class="auth-title">Login</h2>
             <p class="auth-description">Por favor, insira seus detalhes de login para entrar.</p>
-            <form action="#" method="POST">
+            <form action="{% url 'account_login' %}" method="POST">
+                {% csrf_token %}
                 <div class="input-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="info@example.com" required>
+                    <label for="id_login">Email:</label>
+                    <input type="email" id="id_login" name="login" placeholder="info@example.com" required>
                 </div>
                 <div class="input-group">
-                    <label for="password">Senha:</label>
+                    <label for="id_password">Senha:</label>
                     <div class="password-input-container">
-                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                        <input type="password" id="id_password" name="password" placeholder="••••••••" required>
                         <i class="fas fa-eye password-toggle"></i>
                     </div>
-                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                    <a href="{% url 'account_reset_password' %}" class="forgot-password">Esqueceu a senha?</a>
                 </div>
                 <div class="checkbox-group">
-                    <input type="checkbox" id="keep-me-logged-in" name="keep_me_logged_in">
+                    <input type="checkbox" id="keep-me-logged-in" name="remember">
                     <label for="keep-me-logged-in">Manter-me logado</label>
                 </div>
                 <button type="submit" class="btn auth-btn">Log in</button>
@@ -49,11 +42,11 @@
 
             <div class="divider">ou continue com</div>
             <div class="social-auth-buttons">
-                <a href="#" class="social-auth-btn google"><i class="fab fa-google"></i></a>
-                <a href="#" class="social-auth-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="{% provider_login_url 'google' %}" class="social-auth-btn google"><i class="fab fa-google"></i></a>
+                <a href="{% provider_login_url 'facebook' %}" class="social-auth-btn facebook"><i class="fab fa-facebook"></i></a>
             </div>
             <div class="auth-link">
-                Não tem uma conta? <a href="signup.html">Cadastre-se</a>
+                Não tem uma conta? <a href="{% url 'account_signup' %}">Cadastre-se</a>
             </div>
         </div>
     </main>
@@ -62,4 +55,7 @@
         <p>&copy; 2025 Eletro Musical. Todos os direitos reservados.</p>
     </footer>
 </body>
-</html>
+{% endblock %}
+
+            
+            

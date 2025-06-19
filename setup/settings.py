@@ -26,6 +26,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SITE_ID = 1
+
 ALLOWED_HOSTS = []
 
 
@@ -39,7 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
-    'usuarios.apps.UsuariosConfig'
+    'usuarios.apps.UsuariosConfig',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'django.contrib.sites',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'setup.urls'
@@ -129,3 +143,34 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': str(os.getenv('AUTH_GOOGLE_CLIENT_ID')),
+            'secret': str(os.getenv('AUTH_GOOGLE_SECRET')),
+            'key': ''
+        }
+    },
+    'facebook': {
+        'APP': {
+            'client_id': str(os.getenv('AUTH_FACEBOOK_CLIENT_ID')),
+            'secret': str(os.getenv('AUTH_FACEBOOK_SECRET')),
+            'key': ''
+        }
+    }
+}
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGIN_METHOD = 'email'  # permite login com email ou usuário
+ACCOUNT_EMAIL_VERIFICATION = "none" 
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+SIGNUP_REDIRECT_URL = '/'
+
+ACCOUNT_UNIQUE_EMAIL = True
+
+ACCOUNT_SIGNUP_FIELDS = ['username', 'email', 'password1', 'password2']
+
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
