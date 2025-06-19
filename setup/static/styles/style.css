@@ -2,7 +2,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 */
 
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -10,13 +9,11 @@
 }
 
 html, body {
-    height: 100%; 
-    margin: 0; 
-    padding: 0; 
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-
-/* Fonte padrão */
 body {
     font-family: 'Open Sans', Arial, sans-serif;
     color: #333;
@@ -27,14 +24,13 @@ body {
 }
 
 main {
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 footer p {
-    margin: 0; 
+    margin: 0;
 }
 
-/* Cabeçalho */
 header {
     background: #111;
     color: #fff;
@@ -66,7 +62,6 @@ nav a:hover {
     color: #ff6600;
 }
 
-/* Hero */
 .hero {
     text-align: center;
     padding: 100px 20px;
@@ -86,21 +81,31 @@ nav a:hover {
     font-family: 'Open Sans', sans-serif;
 }
 
-.btn {
+.btn,
+.auth-btn {
+    width: 100%;
+    padding: 18px;
     display: inline-block;
     background: #ff6600;
     color: #fff;
-    padding: 12px 25px;
     text-decoration: none;
     border-radius: 5px;
     font-family: 'Poppins', sans-serif;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    letter-spacing: 0.5px;
 }
 
-.btn:hover {
-    background: #e65c00;
+.btn:hover,
+.auth-btn:hover {
+    background: #993300;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 64, 237, 0.2);
 }
 
-/* Features */
 .features {
     display: flex;
     justify-content: space-around;
@@ -120,7 +125,6 @@ nav a:hover {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Rodapé */
 footer {
     text-align: center;
     padding: 20px;
@@ -129,9 +133,6 @@ footer {
     margin-top: 50px;
     font-family: 'Open Sans', sans-serif;
 }
-
-
-
 
 .auth-page {
     display: flex;
@@ -209,6 +210,10 @@ footer {
 }
 
 .password-toggle {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
     position: absolute;
     right: 20px;
     top: 50%;
@@ -273,27 +278,6 @@ footer {
     color: #fff;
 }
 
-.auth-btn {
-    width: 100%;
-    padding: 18px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #ff6600;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-top: 20px;
-    letter-spacing: 0.5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.auth-btn:hover {
-    background-color: #993300;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(106, 64, 237, 0.2);
-}
-
 .divider {
     position: relative;
     text-align: center;
@@ -348,7 +332,6 @@ footer {
 .social-auth-btn.google i { color: #db4437; }
 .social-auth-btn.facebook i { color: #3b5998; }
 
-
 .alert {
     display: flex;
     align-items: center;
@@ -361,12 +344,11 @@ footer {
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-
-    position: fixed; /* Essencial: Faz o elemento "flutuar" e permanecer na mesma posição na tela */
-    top: 40px; /* Distância do topo da tela. Ajuste este valor se quiser mais ou menos espaço */
-    left: 0; /* Define a borda esquerda para 0 */
-    right: 0; /* Define a borda direita para 0 */
-    margin: 0 auto; /* Centraliza o elemento horizontalmente quando left e right estão definidos */
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     z-index: 1000;
 }
 
