@@ -3,12 +3,13 @@
 {% load socialaccount %}
 {% load static %}
 <body>
+    {% include 'partials/_messages.html' %}
     {% include 'partials/_errors.html' %}
     <main class="auth-page">
         <section class="auth-box">
             <h1 class="auth-title">Cadastro</h1>
             <p class="auth-description">Crie sua conta em segundos</p>
-
+            
             <form action="{% url 'account_signup' %}" method="POST">
                 {% csrf_token %}
                 <div class="input-group">

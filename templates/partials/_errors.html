@@ -1,5 +1,6 @@
-{% if messages %}
-    {% for message in messages %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}    
         <div 
             x-data="{ show: true }" 
             x-init="setTimeout(() => show = true, 200); setTimeout(() => show = false, 6000)"
@@ -7,7 +8,20 @@
             x-show="show"
             class="alert" 
         >
-            <span>{{ message }}</span>
+            <span>{{ error }}</span>
+            <button @click="show = false" aria-label="Fechar mensagem">&times;</button>
+        </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <div 
+            x-data="{ show: true }" 
+            x-init="setTimeout(() => show = true, 200); setTimeout(() => show = false, 6000)"
+            x-transition
+            x-show="show"
+            class="alert" 
+        >
+            <span>{{ error }}</span>
             <button @click="show = false" aria-label="Fechar mensagem">&times;</button>
         </div>
     {% endfor %}

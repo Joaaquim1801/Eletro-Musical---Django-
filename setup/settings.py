@@ -168,9 +168,12 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 SIGNUP_REDIRECT_URL = '/'
+ACCOUNT_FORMS = {'signup': 'usuarios.forms.MyCustomSignupForm'}
+
 
 ACCOUNT_UNIQUE_EMAIL = True
 
 ACCOUNT_SIGNUP_FIELDS = ['username', 'email', 'password1', 'password2']
 
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+
