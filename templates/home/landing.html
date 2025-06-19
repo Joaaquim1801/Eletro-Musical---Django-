@@ -1,6 +1,7 @@
+{% extends 'shared/base.html' %}
 {% load static %}
+{% block content%}
 <body>
-    {% include 'partials/_errors.html' %}
     <section class="hero">
         <h1>Descubra o som perfeito</h1>
         <p>Instrumentos musicais de alta qualidade para músicos exigentes.</p>
@@ -21,4 +22,6 @@
             <p>Suporte especializado para te ajudar a escolher.</p>
         </div>
     </section>
+
 </body>
+{% endblock %}
