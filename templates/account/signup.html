@@ -1,0 +1,53 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+{% load socialaccount %}
+{% load static %}
+<body>
+    {% include 'partials/_errors.html' %}
+    <main class="auth-page">
+        <section class="auth-box">
+            <h1 class="auth-title">Cadastro</h1>
+            <p class="auth-description">Crie sua conta em segundos</p>
+
+            <form action="{% url 'account_signup' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="id_signup">Nome Completo:</label>
+                    <input type="text" id="id_signup" name="full_name" placeholder="João Silva" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_signup">Email:</label>
+                    <input type="email" id="id_signup" name="email" placeholder="info@example.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_password1">Senha:</label>
+                    <input type="password" id="id_password1" name="password1" placeholder="••••••••" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_password2">Confirme a Senha:</label>
+                    <input type="password" id="id_password2" name="password2" placeholder="Confirme a senha" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms-privacy" name="terms_privacy" required>
+                    <label for="terms-privacy">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+
+                <button type="submit" class="btn auth-btn">Create an account</button>
+            </form>
+
+            <div class="divider">ou continue com</div>
+            <div class="social-auth-buttons">
+                <a href="{% provider_login_url 'google' %}" class="social-auth-btn google"><i class="fab fa-google"></i></a>
+                <a href="{% provider_login_url 'facebook' %}" class="social-auth-btn facebook"><i class="fab fa-facebook"></i></a>
+            </div>
+            <p class="auth-link">
+                Já possui uma conta? <a href="{% url 'account_login' %}">Login</a>
+            </p>
+        </section>
+    </main>
+</body>
+{% endblock %}
