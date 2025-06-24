@@ -1,0 +1,107 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+{% load static %}
+
+<main>
+        <section class="products-catalog">
+            <h1>Nosso Catálogo de Produtos</h1>
+            <p class="catalog-description">Explore nossa vasta seleção de instrumentos musicais e acessórios de alta qualidade.</p>
+
+            <div class="product-categories">
+                <h2>Categorias</h2>
+                <ul>
+                    <li><a href="#guitars">Guitarras</a></li>
+                    <li><a href="#keyboards">Teclados</a></li>
+                    <li><a href="#drums">Baterias e Percussão</a></li>
+                    <li><a href="#accessories">Acessórios</a></li>
+                    <li><a href="#amplifiers">Amplificadores</a></li>
+                </ul>
+            </div>
+
+            <div class="product-list" id="guitars">
+                <h2>Guitarras</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Guitarra+Elétrica" alt="Guitarra Elétrica">
+                        <h3>Guitarra Elétrica Stratocaster</h3>
+                        <p class="product-price">R$ 2.500,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Guitarra+Acústica" alt="Guitarra Acústica">
+                        <h3>Guitarra Acústica Folk</h3>
+                        <p class="product-price">R$ 1.200,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Baixo+Elétrico" alt="Baixo Elétrico">
+                        <h3>Baixo Elétrico Jazz Bass</h3>
+                        <p class="product-price">R$ 3.000,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-list" id="keyboards">
+                <h2>Teclados</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Teclado+Digital" alt="Teclado Digital">
+                        <h3>Teclado Digital 61 Teclas</h3>
+                        <p class="product-price">R$ 1.800,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Controlador+MIDI" alt="Controlador MIDI">
+                        <h3>Controlador MIDI 49 Teclas</h3>
+                        <p class="product-price">R$ 600,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a> 
+                </div>
+            </div>
+
+            <div class="product-list" id="drums">
+                <h2>Baterias e Percussão</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Bateria+Acústica" alt="Bateria Acústica">
+                        <h3>Bateria Acústica Completa</h3>
+                        <p class="product-price">R$ 5.000,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-list" id="accessories">
+                <h2>Acessórios</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Cabo+P10" alt="Cabo P10">
+                        <h3>Cabo P10 Profissional</h3>
+                        <p class="product-price">R$ 80,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Palhetas" alt="Palhetas">
+                        <h3>Kit de Palhetas Sortidas</h3>
+                        <p class="product-price">R$ 25,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-list" id="amplifiers">
+                <h2>Amplificadores</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/250x200?text=Amplificador+Guitarra" alt="Amplificador de Guitarra">
+                        <h3>Amplificador de Guitarra 30W</h3>
+                        <p class="product-price">R$ 950,00</p>
+                        <a href="#" class="btn product-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+{% endblock %}
