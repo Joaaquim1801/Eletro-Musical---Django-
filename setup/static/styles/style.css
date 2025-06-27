@@ -593,7 +593,6 @@ footer {
 }
 
 .product-btn {
-    /* Reutiliza o estilo do .btn existente, mas pode ser ajustado para o contexto */
     width: 100%; /* Faz o botão ocupar a largura total do card */
     padding: 12px 0; /* Ajusta o padding para o botão full width */
 }
@@ -664,4 +663,58 @@ footer {
     position: fixed;
     bottom: 30px;
     right: 20px;
+}
+
+.sub-header {
+    background-color: #f9f9f9;
+    padding: 12px 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.categoria-lista {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.categoria-lista li a {
+    display: flex;
+    align-items: center;
+    color: #222;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.categoria-lista li a:hover {
+    color: #f26522; /* Ou outra cor de destaque */
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+    text-align: center;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.category-item:hover {
+    transform: scale(1.1);
+}
+
+.category-item img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 6px;
+}
+
+.category-item span {
+    font-size: 13px;
+    color: #333;
 }

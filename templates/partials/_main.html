@@ -1,45 +1,45 @@
 {% load static %}
 <header>
-        <div class="logo_img">
-            <img src="{% static '/assets/images/teste.png' %}" alt="Eletro Musical">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="{% url 'landing' %}">Início</a></li>
-                <li><a href="#">Produtos</a></li>
-                <li><a href="#">Contato</a></li>
-                {% if request.user.is_authenticated %}
-                    <li class="profile-menu" id="profileMenu">
-                        <button class="profile-btn" id="profileBtn">
-                            {{ request.user.username }}
-                            <img src="https://img.icons8.com/small/32/777777/expand-arrow.png" alt="Seta" class="arrow" id="arrow">
-                        </button>   
-                        <div class="dropdown" id="dropdownMenu">
-                                <a href="#">My Profile</a>
-                                <a href="#">Edit Profile</a>
-                                <a href="#">Settings</a>
-                                <a href="{% url 'account_logout' %}">Log Out</a>
-                        </div>
-                    </li>
-                {% else %}
-                    <li><a href="{% url 'account_login' %}">Entrar</a></li>
-                {% endif %}
-                <script>
-                    const profileBtn = document.getElementById('profileBtn');
-                    const dropdownMenu = document.getElementById('dropdownMenu');
-                    const profileMenu = document.getElementById('profileMenu');
+    <div class="logo_img">
+        <img src="{% static '/assets/images/teste.png' %}" alt="Eletro Musical">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'landing' %}">Início</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Contato</a></li>
+            {% if request.user.is_authenticated %}
+                <li class="profile-menu" id="profileMenu">
+                    <button class="profile-btn" id="profileBtn">
+                        {{ request.user.username }}
+                        <img src="https://img.icons8.com/small/32/777777/expand-arrow.png" alt="Seta" class="arrow" id="arrow">
+                    </button>   
+                    <div class="dropdown" id="dropdownMenu">
+                        <a href="#">My Profile</a>
+                        <a href="#">Edit Profile</a>
+                        <a href="#">Settings</a>
+                        <a href="{% url 'account_logout' %}">Log Out</a>
+                    </div>
+                </li>
+            {% else %}
+                <li><a href="{% url 'account_login' %}">Entrar</a></li>
+            {% endif %}
+            <script>
+                const profileBtn = document.getElementById('profileBtn');
+                const dropdownMenu = document.getElementById('dropdownMenu');
+                const profileMenu = document.getElementById('profileMenu');
 
-                    profileBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const isActive = profileMenu.classList.toggle('active');
-                        dropdownMenu.style.display = isActive ? 'block' : 'none';
-                    });
+                profileBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isActive = profileMenu.classList.toggle('active');
+                    dropdownMenu.style.display = isActive ? 'block' : 'none';
+                });
 
-                    window.addEventListener('click', () => {
-                        profileMenu.classList.remove('active');
-                        dropdownMenu.style.display = 'none';
-                    });
-                </script>
-            </ul>
-        </nav>
+                window.addEventListener('click', () => {
+                    profileMenu.classList.remove('active');
+                    dropdownMenu.style.display = 'none';
+                });
+            </script>
+        </ul>
+    </nav>
 </header>
