@@ -412,9 +412,9 @@
 .quantity-btn {
     background-color: #f0f0f0;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 12px;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 0.9em;
     font-weight: bold;
     color: #555;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -426,7 +426,7 @@
 }
 
 .quantity-input {
-    width: 40px;
+    width: 30px;
     text-align: center;
     border: none;
     border-left: 1px solid #ddd;
@@ -443,6 +443,7 @@
 }
 
 .add-to-cart-btn {
+    border: none;
     flex-grow: 1;
     min-width: 120px;
 }
@@ -466,6 +467,7 @@
     text-transform: uppercase;
     background-color: #ff6600;
 }
+
 /* --- Banners de Categorias Principais --- */
 .category-banners {
     margin-top: 80px;
@@ -487,8 +489,8 @@
 }
 
 .category-banner-item {
-    width: 260px;  /* Aumenta largura */
-    height: 160px;
+    width: 300px;  /* Aumenta largura */
+    height: 200px;
     position: relative;
     border-radius: 15px;
     overflow: hidden;
@@ -534,10 +536,12 @@
 
 /* --- Carrossel de Marcas --- */
 .brands-carousel-section {
+    max-width: 1200px;
+    margin: 0 auto;
     margin-top: 80px;
     margin-bottom: 80px;
     text-align: center;
-    padding: 40px 0;
+    padding: 20px 0;
     border-radius: 12px;
 }
 
@@ -563,14 +567,12 @@
 
 .brand-item {
     flex-shrink: 0;
-    width: 150px; /* Largura fixa para logo da marca */
-    height: 80px; /* Altura fixa */
-    background-color: #fff;
+    width: 200px; /* Largura fixa para logo da marca */
+    height: 130px; /* Altura fixa */
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     scroll-snap-align: start;
 }
@@ -995,7 +997,6 @@ footer {
         max-width: 150px;
     }
     .add-to-cart-btn {
-        border: none;
         width: 100%;
         padding: 10px;
         font-size: 0.9em;

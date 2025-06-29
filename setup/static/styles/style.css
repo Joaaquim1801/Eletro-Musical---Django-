@@ -425,6 +425,15 @@ footer {
   font-family: 'Poppins', sans-serif;
 }
 
+.hover-text {
+  cursor: pointer;
+  padding-bottom: 6px;
+}
+
+.profile-menu:hover .hover-text {
+  color: #ff6600;
+}
+
 .dropdown {
   display: none;
   position: absolute;
@@ -438,6 +447,50 @@ footer {
   overflow: hidden;
 }
 
+.dropdownConta {
+  display: none;
+  position: absolute;
+  top: 2.8rem;
+  right: 0;
+  background-color: #fff;   /* Caixa branca */
+  border-radius: 0.5rem;    /* Cantos arredondados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+  min-width: 320px;
+  min-height: 260px;
+  z-index: 1000;
+  overflow: hidden;
+  margin-top: -6px;
+}
+
+.dropdownConta a {
+  display: flex;
+  padding: 0.9rem 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.dropdownConta ul {
+  list-style: none;
+  padding: 16px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dropdownConta li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #333;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
 .dropdown a {
   display: block;
   padding: 0.9rem 1rem;
@@ -448,6 +501,50 @@ footer {
 
 .dropdown a:hover {
   background-color: #f2f2f2;
+}
+
+
+
+.contato-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.atendimento-icon {
+  width: 24px;
+  height: 24px;
+  margin-top: 3px;
+  filter: invert(53%) sepia(90%) saturate(500%) hue-rotate(-10deg) brightness(102%) contrast(95%);
+}
+
+.label {
+  font-size: 0.75rem;
+  color: #777;
+  margin: 0;
+}
+
+.subtexto {
+  font-size: 1rem;
+  color: #999;
+  margin: 0;
+  font-family: Arial;
+}
+
+.destaque {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-left: 0; 
+  margin-right: auto;
+}
+
+.horario {
+  border-bottom: none;
+  flex-direction: column;
+  margin-left: 0; /* Garante que o elemento fique alinhado à esquerda */
+  margin-right: auto;
 }
 
 .arrow {
@@ -698,7 +795,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 20px;
+    margin: 0 60px;
     text-align: center;
     transition: transform 0.2s ease;
     cursor: pointer;
@@ -717,4 +814,12 @@ footer {
 .category-item span {
     font-size: 13px;
     color: #333;
+}
+
+.menu-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  margin-right: 8px;
+  vertical-align: middle;
 }

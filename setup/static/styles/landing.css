@@ -536,10 +536,12 @@
 
 /* --- Carrossel de Marcas --- */
 .brands-carousel-section {
+    max-width: 1200px;
+    margin: 0 auto;
     margin-top: 80px;
     margin-bottom: 80px;
     text-align: center;
-    padding: 40px 0;
+    padding: 20px 0;
     border-radius: 12px;
 }
 
@@ -565,14 +567,12 @@
 
 .brand-item {
     flex-shrink: 0;
-    width: 150px; /* Largura fixa para logo da marca */
-    height: 80px; /* Altura fixa */
-    background-color: #fff;
+    width: 200px; /* Largura fixa para logo da marca */
+    height: 130px; /* Altura fixa */
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     scroll-snap-align: start;
 }
@@ -1190,3 +1190,4 @@ footer {
         font-size: 0.8em;
     }
 }
+
