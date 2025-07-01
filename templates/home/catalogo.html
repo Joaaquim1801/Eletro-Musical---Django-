@@ -1,0 +1,104 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+{% load static %}
+<body>
+
+  <div class="sub-header">
+                <ul class="categoria-lista">
+                    <li class="category-item">
+                        <a href="{% url 'catalogo' 'Cordas' %}">
+                            <img src="{% static 'assets/icons/cordas.png' %}">
+                            <span>Cordas</span>
+                        </a>
+                    <li class="category-item">
+                        <a href="{% url 'catalogo' 'Percussão' %}">
+                            <img src="{% static 'assets/icons/percussao.png' %}">
+                            <span>Percussão</span>
+                        </a>
+                    </li>
+                    <li class="category-item">
+                        <a href="{% url 'catalogo' 'Teclas' %}">
+                            <img src="{% static 'assets/icons/teclas.png' %}">
+                            <span>Teclas</span>
+                        </a>
+                    </li>
+                    <li class="category-item">
+                        <a href="{% url 'catalogo' 'Acessórios'%}">
+                            <img src="{% static 'assets/icons/acessorios.png' %}">
+                            <span>Acessórios</span>
+                        </a>
+                    </li>
+                    <li class="category-item">
+                        <a href="{% url 'catalogo' 'Áudio'%}">
+                            <img src="{% static 'assets/icons/audio.png' %}">
+                            <span>Áudio</span>
+                        </a>
+                    </li>
+                </ul>
+        </div>
+
+  <main class="catalog-wrapper">
+    <div class="catalog-breadcrumb">
+      <a href="{% url 'landing' %}" class="breadcrumb-link breadcrumb-bold">Página Inicial</a> /
+      <a href="{% url 'catalogo' categoria_nome|upper  %}" class="breadcrumb-link">{{ categoria_nome|title }}</a> <!-- Para usar um método python dentro do template basta colocar o |função -->
+    </div>
+    <aside class="catalog-sidebar">
+      <h2>Marcas</h2>
+      {% for marca in marcas %}
+        <div class="catalog-filter"><input type="checkbox" id="marca{{ forloop.counter }}"><label for="marca{{ forloop.counter }}"> {{ marca }} (2)</label></div>
+      {% endfor %}
+      <h2>Categorias</h2>
+      <div class="catalog-filter"><input type="checkbox" id="cat1"><label for="cat1">Acessórios Cordas (17)</label></div>
+      <div class="catalog-filter"><input type="checkbox" id="cat2"><label for="cat2">Bag e Capas (3)</label></div>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn add-to-cart-btn" style="width: 100%; font-size: 1.1em;">
+          Filtrar
+        </button>
+      </div>
+    </aside>
+
+    <section class="catalog-content">
+      <div class="catalog-topbar">
+        <h1>{{ categoria_nome|title }}</h1>
+        <div>
+          <label for="sort">Ordenar por:</label>
+          <select name="sort" id="sort">
+            <option value="nome">Nome A-Z</option>
+            <option value="menor_preco">Menor Preço</option>
+            <option value="maior_preco">Maior Preço</option>
+            <option value="lancamento">Lançamento</option>
+            <option value="desconto">Melhores descontos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="catalog-grid">
+        <!-- LINHAS DE PRODUTO (15) -->
+        <!-- Exemplo de um produto abaixo (repetido 15x) -->
+        {% if produtos %}
+          {% for produto in produtos %}
+          <div class="catalog-card">
+            <!-- o problema estava por que o nome não era imagemproduto_setall, mas ficou salvo em models como imagens -->
+            {% if produto.imagens.exists %}
+              {% for imagem in produto.imagens.all %}
+                {% if imagem.destaque  %}
+                  <img src="{{ imagem.imagem.url }}" alt="{{ produto.nome }}">
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+            <div class="catalog-info">
+              <h3>{{ produto.nome }}</h3>
+              <p class="catalog-old-price">R${{ produto.preco_original }}</p>
+              <p class="catalog-price">R${{ produto.preco }}</p>
+              <button class="catalog-btn">Comprar</button>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </section>
+  </div>
+  </main>
+</body>
+{% endblock %}

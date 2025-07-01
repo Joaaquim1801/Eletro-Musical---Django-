@@ -1,0 +1,182 @@
+/* Adicionar ao seu CSS existente */
+
+.catalog-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    padding: 40px 60px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.catalog-breadcrumb {
+    font-size: 0.9rem;
+    grid-column: 1 / -1; /* Ocupa toda a largura da grade */
+}
+
+.breadcrumb-link.breadcrumb-bold {
+    font-weight: bold;
+    color: #ff6600; /* Cor laranja */
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none; /* Remove o sublinhado */
+}
+
+.breadcrumb-link {
+    color: #666; /* Cor cinza */
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none; /* Remove o sublinhado */
+    margin-left: 5px; /* Pequeno espaçamento entre as partes */
+}
+
+.breadcrumb-link:hover {
+    text-decoration: underline; /* Adiciona sublinhado no hover para indicar clicabilidade */
+}
+
+.catalog-sidebar {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    height: max-content;
+    margin-top: 0;
+}
+
+.catalog-sidebar h2 {
+    font-size: 1em;
+    color: #ff6600;
+    margin: 15px 0 10px;
+}
+
+.catalog-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 0.95em;
+}
+
+.catalog-filter input[type="checkbox"] {
+    margin: 0;
+}
+
+.catalog-content {
+    width: 100%;
+}
+
+.catalog-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.catalog-topbar h1 {
+    font-size: 2.0rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+.catalog-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.catalog-sort label {
+    font-size: 0.9em;
+    color: #555;
+    font-weight: 600;
+}
+
+.catalog-sort select {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95em;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.catalog-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.catalog-card:hover {
+    transform: translateY(-4px);
+}
+
+.catalog-card img {
+  width: 100%;
+  height: 300px;           /* altura maior */
+  object-fit: contain;     /* mantém proporção, não corta */
+  padding: 0;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+  display: block;
+  margin: 0 auto;
+}
+
+
+.catalog-info {
+    padding: 15px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.catalog-info h3 {
+    font-size: 0.95em;
+    margin-bottom: 5px;
+    max-height: 2.8em;           /* Limita a 2 linhas */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;       /* Limita a 2 linhas */
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+.catalog-old-price {
+    font-size: 0.85em;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.catalog-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ff6600;
+}
+
+.catalog-btn {
+    margin-top: auto;
+    width: 100%;
+    background: #ff6600;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.catalog-btn:hover {
+    background-color: #e65c00;
+}

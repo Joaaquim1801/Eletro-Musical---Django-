@@ -1,8 +1,16 @@
 {% load static %}
 <header>
-    <div class="logo_img">
+    <a class="logo_img" href="{% url 'landing' %}">
         <img src="{% static '/assets/images/teste.png' %}" alt="Eletro Musical">
-    </div>
+    </a>
+        <div class="header-search">
+        <form class="header-search__form" action="/buscar" method="GET">
+            <input class="header-search__input" type="text" name="q" placeholder="O que você procura?">
+            <button class="header-search__button" type="submit">
+            <img class="header-search__icon" src="{% static '/assets/icons/procurar.png' %}" alt="Buscar">
+            </button>
+        </form>
+        </div>
     <nav>
         <ul>
             <li class="profile-menu" id="hoverProfile">
@@ -64,10 +72,10 @@
                     </a>
                 </li>
             {% endif %}
-                <a href="#">
-                    <img src="{% static '/assets/icons/shopping.png' %}" alt="Carrinho" class="menu-icon">
-                    Carrinho
-                </a>
+            <a href="#">
+                <img src="{% static '/assets/icons/shopping.png' %}" alt="Carrinho" class="menu-icon">
+                Carrinho
+            </a>
             <script>
                 const profileBtn = document.getElementById('profileBtn');
                 const dropdownMenu = document.getElementById('dropdownMenu');
@@ -105,7 +113,6 @@
 
                 hoverDropdown.addEventListener('mouseenter', showDropdown);
                 hoverDropdown.addEventListener('mouseleave', hideDropdown);
-
             </script>
         </ul>
     </nav>

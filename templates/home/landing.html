@@ -6,24 +6,33 @@
         <div class="sub-header">
                 <ul class="categoria-lista">
                     <li class="category-item">
-                        <img src="{% static 'assets/icons/cordas.png' %}">
-                        Cordas
+                        <a href="{% url 'catalogo' 'Cordas' %}">
+                            <img src="{% static 'assets/icons/cordas.png' %}">
+                            <span>Cordas</span>
+                        </a>
+                    <li class="category-item">
+                        <a href="{% url 'catalogo' 'Percussão' %}">
+                            <img src="{% static 'assets/icons/percussao.png' %}">
+                            <span>Percussão</span>
+                        </a>
                     </li>
                     <li class="category-item">
-                        <img src="{% static 'assets/icons/percussao.png' %}">
-                        Percussão
+                        <a href="{% url 'catalogo' 'Teclas' %}">
+                            <img src="{% static 'assets/icons/teclas.png' %}">
+                            <span>Teclas</span>
+                        </a>
                     </li>
                     <li class="category-item">
-                        <img src="{% static 'assets/icons/teclas.png' %}">
-                        Teclas
+                        <a href="{% url 'catalogo' 'Acessórios'%}">
+                            <img src="{% static 'assets/icons/acessorios.png' %}">
+                            <span>Acessórios</span>
+                        </a>
                     </li>
                     <li class="category-item">
-                        <img src="{% static 'assets/icons/acessorios.png' %}">
-                        Acessórios
-                    </li>
-                    <li class="category-item">
-                        <img src="{% static 'assets/icons/audio.png' %}">
-                        Áudio
+                        <a href="{% url 'catalogo' 'Áudio'%}">
+                            <img src="{% static 'assets/icons/audio.png' %}">
+                            <span>Áudio</span>
+                        </a>
                     </li>
                 </ul>
         </div>
@@ -67,19 +76,19 @@
         <section class="category-banners">
                 <h2>Explore por Categoria</h2>
                 <div class="category-banner-grid">
-                    <a href="#guitars" class="category-banner-item">
+                    <a href="{% url 'catalogo' 'Cordas' %}" class="category-banner-item">
                         <img src="{% static 'assets/images/categoria_violao.jpg' %}" alt="Guitarras">
                         <div class="overlay-text">VIOLÕES</div>
                     </a>
-                    <a href="#keyboards" class="category-banner-item">
+                    <a href="{% url 'catalogo' 'Teclas' %}" class="category-banner-item">
                         <img src="{% static 'assets/images/categoria_teclas.jpg' %}" alt="Teclados">
                         <div class="overlay-text">TECLADOS</div>
                     </a>
-                    <a href="#drums" class="category-banner-item">
+                    <a href="{% url 'catalogo' 'Percussão' %}" class="category-banner-item">
                         <img src="{% static 'assets/images/categoria_percussao.jpg' %}" alt="Baterias">
                         <div class="overlay-text">BATERIAS</div>
                     </a>
-                    <a href="#audio" class="category-banner-item">
+                    <a href="{% url 'catalogo' 'Áudio'%}" class="category-banner-item">
                         <img src="{% static 'assets/images/categoria_audio.jpg' %}" alt="Áudio">
                         <div class="overlay-text">ÁUDIO</div>
                     </a>
@@ -109,11 +118,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="product-carousel">
                         <div class="product-card">
-                            <img src="https://via.placeholder.com/280x250?text=Teclado+Popular" alt="Teclado Popular">
+                            <span class="product-badge discount">-15%</span>
+                            <img src="https://via.placeholder.com/280x250?text=Guitarra+Promocao" alt="Guitarra Elétrica Promocional">
                             <div class="product-info">
-                                <h3>Teclado Portátil Iniciante</h3>
-                                <p class="product-price">R$ 980,00</p>
+                                <h3>Guitarra Elétrica Standard</h3>
+                                <p class="original-price">R$ 2.000,00</p>
+                                <p class="product-price">R$ 1.700,00</p>
                                 <div class="product-actions">
                                     <div class="quantity-control">
                                         <button class="quantity-btn minus">-</button>
@@ -124,52 +136,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-card">
-                            <img src="https://via.placeholder.com/280x250?text=Cabo+P10+Top" alt="Cabo P10 Top">
-                            <div class="product-info">
-                                <h3>Cabo P10 Profissional 5m</h3>
-                                <p class="product-price">R$ 120,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <img src="https://via.placeholder.com/280x250?text=Bateria+Eletronica" alt="Bateria Eletronica">
-                            <div class="product-info">
-                                <h3>Bateria Eletrônica Completa</h3>
-                                <p class="product-price">R$ 3.500,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <img src="https://via.placeholder.com/280x250?text=Microfone+Condensador" alt="Microfone Condensador">
-                            <div class="product-info">
-                                <h3>Microfone Condensador Studio</h3>
-                                <p class="product-price">R$ 600,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <button class="carousel-nav-btn next-product-carousel">
                         <img src="{% static '/assets/icons/palheta-left.png' %}" alt="Próximo">
                     </button>
@@ -282,13 +248,41 @@
                          <img src="{% static '/assets/icons/palheta-right.png' %}" alt="Próximo">
                     </button>
                     <div class="brands-carousel">
-                        <div class="brand-item"><img src="{% static '/assets/marcas/giannini.png' %}" alt="giannini"></div>
-                        <div class="brand-item"><img src="{% static '/assets/marcas/harmonics.png' %}" alt="harmonics"></div>
-                        <div class="brand-item"><img src="{% static '/assets/marcas/mxt.png' %}" alt="mxt"></div>
-                        <div class="brand-item"><img src="{% static '/assets/marcas/santo_angelo.png' %}" alt="santo_angelo"></div>
-                        <div class="brand-item"><img src="{% static '/assets/marcas/yamaha.png' %}" alt="yamaha"></div>
-                        <div class="brand-item"><img src="{% static '/assets/marcas/staner.png' %}" alt="staner"></div>
-                        <div class="brand-item"><img src="{% static '/assets/marcas/strinberg.png' %}" alt="strinberg"></div>
+                        <div class="brand-item">
+                            <a href="{% url 'catalogo' 'Giannini' %}">
+                                <img src="{% static 'assets/marcas/giannini.png' %}" alt="giannini">
+                            </a>
+                        </div>
+                        <div class="brand-item">
+                            <a href="{% url 'catalogo' 'Harmonics' %}">
+                                <img src="{% static 'assets/marcas/harmonics.png' %}" alt="harmonics">
+                            </a>
+                        </div>
+                        <div class="brand-item">
+                            <a href="{% url 'catalogo' 'Mxt' %}">
+                                <img src="{% static 'assets/marcas/mxt.png' %}" alt="mxt">
+                            </a>
+                        </div>
+                        <div class="brand-item">
+                            <a href="{% url 'catalogo' 'Santo_Angelo' %}">
+                                <img src="{% static 'assets/marcas/santo_angelo.png' %}" alt="santo_angelo">
+                            </a>
+                        </div>
+                        <div class="brand-item">
+                            <a href="{% url 'catalogo' 'Yamaha' %}">
+                                <img src="{% static 'assets/marcas/yamaha.png' %}" alt="yamaha">
+                            </a>
+                        </div>
+                        <div class="brand-item">
+                            <a href="{% url 'catalogo' 'Staner' %}">
+                                <img src="{% static 'assets/marcas/staner.png' %}" alt="staner">
+                            </a>
+                        </div>
+                        <div class="brand-item">
+                            <a href="{% url 'catalogo' 'Strinberg' %}">
+                                <img src="{% static 'assets/marcas/strinberg.png' %}" alt="strinberg">
+                            </a>
+                        </div>
                     </div>
                     <button class="carousel-nav-btn next-brand-carousel">
                         <img src="{% static '/assets/icons/palheta-left.png' %}" alt="Próximo">

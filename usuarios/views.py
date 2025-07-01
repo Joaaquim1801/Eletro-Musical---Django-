@@ -8,6 +8,3 @@ def cadastro(request):
 
 def logout(request):
     return render(request, 'account/logout.html')
-
-def test(request):
-    return render(request, 'home/x.html')
