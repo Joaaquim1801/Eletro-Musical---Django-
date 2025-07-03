@@ -4,12 +4,12 @@
         <img src="{% static '/assets/images/teste.png' %}" alt="Eletro Musical">
     </a>
         <div class="header-search">
-        <form class="header-search__form" action="/buscar" method="GET">
-            <input class="header-search__input" type="text" name="q" placeholder="O que você procura?">
-            <button class="header-search__button" type="submit">
-            <img class="header-search__icon" src="{% static '/assets/icons/procurar.png' %}" alt="Buscar">
-            </button>
-        </form>
+            <form class="header-search__form" action="{% url 'buscar' %}">
+                <input class="header-search__input" type="text" name="buscar" placeholder="O que você procura?">
+                    <button class="header-search__button" type="submit">
+                        <img class="header-search__icon" src="{% static '/assets/icons/procurar.png' %}" alt="Buscar">
+                    </button>
+            </form>
         </div>
     <nav>
         <ul>

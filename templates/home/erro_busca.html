@@ -1,0 +1,55 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+{% load static %}
+<div class="sub-header">
+  <ul class="categoria-lista">
+      <li class="category-item">
+          <a href="{% url 'catalogo' 'Cordas' %}">
+              <img src="{% static 'assets/icons/cordas.png' %}">
+              <span>Cordas</span>
+          </a>
+      <li class="category-item">
+          <a href="{% url 'catalogo' 'Percussão' %}">
+              <img src="{% static 'assets/icons/percussao.png' %}">
+              <span>Percussão</span>
+          </a>
+      </li>
+      <li class="category-item">
+          <a href="{% url 'catalogo' 'Teclas' %}">
+              <img src="{% static 'assets/icons/teclas.png' %}">
+              <span>Teclas</span>
+          </a>
+      </li>
+      <li class="category-item">
+          <a href="{% url 'catalogo' 'Acessórios'%}">
+              <img src="{% static 'assets/icons/acessorios.png' %}">
+              <span>Acessórios</span>
+          </a>
+      </li>
+      <li class="category-item">
+          <a href="{% url 'catalogo' 'Áudio'%}">
+              <img src="{% static 'assets/icons/audio.png' %}">
+              <span>Áudio</span>
+          </a>
+      </li>
+  </ul>
+</div>
+<div style="text-align: center; margin-top: 40px;">
+  <h2 style="color: #555; font-weight: 600;">Desculpe, não encontramos o produto pesquisado</h2>
+  <p style="color: #888; font-size: 1.2em; margin-bottom: 30px;">
+    Abaixo algumas dicas para encontrar o que precisa
+  </p>
+  <div style="display: inline-block; background: #f7f7f7; padding: 24px 36px; border-radius: 8px; text-align: left; margin-bottom: 30px;">
+    <ul style="color: #888; font-size: 1.1em; list-style: disc inside;">
+      <li>Confira se os termos digitados estão corretos</li>
+      <li>Utilize menos palavras, ou palavras genéricas</li>
+      <li>Tente outro produto ou navegue por categorias para encontrar o que você precisa.</li>
+    </ul>
+  </div>
+  <div style="margin-top: 20px;">
+    <a href="{% url 'landing' %}" style="color: #ff6600; text-decoration: none; font-size: 1.1em; font-weight: 800;">
+      &lt; Voltar à página inicial
+    </a>
+  </div>
+</div>
+{% endblock %}

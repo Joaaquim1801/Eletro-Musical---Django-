@@ -101,41 +101,36 @@
                     <button class="carousel-nav-btn prev-product-carousel">
                         <img src="{% static '/assets/icons/palheta-right.png' %}" alt="Anterior">
                     </button>
-                    <div class="product-carousel">
-                        <div class="product-card">
-                            <span class="product-badge">Top Vendas</span>
-                            <img src="https://via.placeholder.com/280x250?text=Guitarra+Mais+Vendida" alt="Guitarra Clássica Nylon">
-                            <div class="product-info">
-                                <h3>Violão Acústico de Estudo</h3>
-                                <p class="product-price">R$ 750,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
                         <div class="product-carousel">
-                        <div class="product-card">
-                            <span class="product-badge discount">-15%</span>
-                            <img src="https://via.placeholder.com/280x250?text=Guitarra+Promocao" alt="Guitarra Elétrica Promocional">
-                            <div class="product-info">
-                                <h3>Guitarra Elétrica Standard</h3>
-                                <p class="original-price">R$ 2.000,00</p>
-                                <p class="product-price">R$ 1.700,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
+                        {% if produtos_mais_vendidos %}
+                            {% for produto in produtos_mais_vendidos %}
+                                <div class="product-card">
+                                    {% if produto.desconto_percentual > 0 %}
+                                        <span class="product-badge discount">-{{ produto.desconto_percentual }}%</span>
+                                    {% endif %}
+                                    {% if produto.imagens.exists %}
+                                        {% for imagem in produto.imagens.all %}
+                                            {% if imagem.destaque %}
+                                                <img src="{{ imagem.imagem.url }}" alt="{{ produto.nome }}">
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="product-info">
+                                        <h3>{{ produto.nome }}</h3>
+                                        <p class="product-old-price">R$ {{ produto.preco_original }}</p>
+                                        <p class="product-price">R$ {{ produto.preco }}</p>
+                                        <div class="product-actions">
+                                            <div class="quantity-control">
+                                                <button class="quantity-btn minus">-</button>
+                                                <input type="text" value="1" class="quantity-input" readonly>
+                                                <button class="quantity-btn plus">+</button>
+                                            </div>
+                                            <button class="btn add-to-cart-btn">Comprar</button>
+                                        </div>
                                     </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
                                 </div>
-                            </div>
-                        </div>
+                            {% endfor %}
+                        {% endif %}
                     <button class="carousel-nav-btn next-product-carousel">
                         <img src="{% static '/assets/icons/palheta-left.png' %}" alt="Próximo">
                     </button>
@@ -146,94 +141,38 @@
                 <h2>Itens em Promoção</h2>
                 <div class="carousel-container">
                     <button class="carousel-nav-btn prev-product-carousel">
-                        <img src="{% static '/assets/icons/palheta-right.png' %}" alt="Próximo">
+                        <img src="{% static '/assets/icons/palheta-right.png' %}" alt="Anteior">
                     </button>
                     <div class="product-carousel">
-                        <div class="product-card">
-                            <span class="product-badge discount">-15%</span>
-                            <img src="https://via.placeholder.com/280x250?text=Guitarra+Promocao" alt="Guitarra Elétrica Promocional">
-                            <div class="product-info">
-                                <h3>Guitarra Elétrica Standard</h3>
-                                <p class="original-price">R$ 2.000,00</p>
-                                <p class="product-price">R$ 1.700,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
+                        {% if produtos_promocao %}
+                            {% for produto in produtos_promocao %}
+                                <div class="product-card">
+                                    {% if produto.desconto_percentual > 0 %}
+                                        <span class="product-badge discount">-{{ produto.desconto_percentual }}%</span>
+                                    {% endif %}
+                                    {% if produto.imagens.exists %}
+                                        {% for imagem in produto.imagens.all %}
+                                            {% if imagem.destaque %}
+                                                <img src="{{ imagem.imagem.url }}" alt="{{ produto.nome }}">
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="product-info">
+                                        <h3>{{ produto.nome }}</h3>
+                                        <p class="product-old-price">R$ {{ produto.preco_original }}</p>
+                                        <p class="product-price">R$ {{ produto.preco }}</p>
+                                        <div class="product-actions">
+                                            <div class="quantity-control">
+                                                <button class="quantity-btn minus">-</button>
+                                                <input type="text" value="1" class="quantity-input" readonly>
+                                                <button class="quantity-btn plus">+</button>
+                                            </div>
+                                            <button class="btn add-to-cart-btn">Comprar</button>
+                                        </div>
                                     </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <span class="product-badge discount">-10%</span>
-                            <img src="https://via.placeholder.com/280x250?text=Amp+Promocao" alt="Amplificador em Promoção">
-                            <div class="product-info">
-                                <h3>Amplificador de Guitarra 15W</h3>
-                                <p class="original-price">R$ 500,00</p>
-                                <p class="product-price">R$ 450,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <span class="product-badge discount">-25%</span>
-                            <img src="https://via.placeholder.com/280x250?text=Pedal+Efeito" alt="Pedal de Efeito">
-                            <div class="product-info">
-                                <h3>Pedal de Efeito Overdrive</h3>
-                                <p class="original-price">R$ 300,00</p>
-                                <p class="product-price">R$ 225,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <span class="product-badge discount">-10%</span>
-                            <img src="https://via.placeholder.com/280x250?text=Amp+Promocao" alt="Amplificador em Promoção">
-                            <div class="product-info">
-                                <h3>Amplificador de Guitarra 15W</h3>
-                                <p class="original-price">R$ 500,00</p>
-                                <p class="product-price">R$ 450,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <span class="product-badge discount">-10%</span>
-                            <img src="https://via.placeholder.com/280x250?text=Amp+Promocao" alt="Amplificador em Promoção">
-                            <div class="product-info">
-                                <h3>Amplificador de Guitarra 15W</h3>
-                                <p class="original-price">R$ 500,00</p>
-                                <p class="product-price">R$ 450,00</p>
-                                <div class="product-actions">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus">-</button>
-                                        <input type="text" value="1" class="quantity-input" readonly>
-                                        <button class="quantity-btn plus">+</button>
-                                    </div>
-                                    <button class="btn add-to-cart-btn">Comprar</button>
-                                </div>
-                            </div>
-                        </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <button class="carousel-nav-btn next-product-carousel">
                         <img src="{% static '/assets/icons/palheta-left.png' %}" alt="Próximo">

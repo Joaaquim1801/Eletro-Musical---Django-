@@ -2,6 +2,7 @@
 {% block content %}
 {% load static %}
 <body>
+
   <div class="sub-header">
                 <ul class="categoria-lista">
                     <li class="category-item">
@@ -70,6 +71,13 @@
           <label for="subcategoria{{ forloop.counter }}">{{ subcategoria.1 }} ({{ subcategoria.2 }})</label>
         </div>
       {% endfor %}
+      {% if request.GET.buscar %}
+        <input type="hidden" name="buscar" value="{{ request.GET.buscar }}">
+      {% endif %}
+      {% if request.GET.sort %}
+        <input type="hidden" name="sort" value="{{ request.GET.sort }}">
+      {% endif %}
+
       <div style="margin-top: 20px; text-align: center;">
         <button class="btn add-to-cart-btn" style="width: 100%; font-size: 1.1em;">
           Filtrar
@@ -83,6 +91,9 @@
         <h1>{{ categoria_nome|title }}</h1>
         <div>
           <form method="get" id="sortForm">
+            {% if request.GET.buscar %}
+              <input type="hidden" name="buscar" value="{{ request.GET.buscar }}">
+            {% endif %}
             {% for marca in marcas_selecionadas %}
               <input type="hidden" name="marcas_lista_checkboxs" value="{{ marca }}">
             {% endfor %}

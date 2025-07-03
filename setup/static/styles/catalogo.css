@@ -182,3 +182,32 @@
 .catalog-btn:hover {
     background-color: #e65c00;
 }
+
+#sortForm label {
+  font-weight: bold;
+  margin-right: 8px;
+  color: #333;
+}
+
+#sort {
+  padding: 8px 28px 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  background: #f8f8f8 url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center/18px 18px;
+  font-size: 1em;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+
+#sort:focus {
+  border: 1.5px solid #007bff;
+  outline: none;
+  background-color: #eef6ff;
+}
+
+#sort option {
+  padding: 10px;
+}

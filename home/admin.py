@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Produtos, ImagemProduto, MarcaProduto, CategoriaProduto
+from home.models import Produtos, ImagemProduto, MarcaProduto, CategoriaProduto, SubCategoriaProduto
 
 class ProdutosAdmin(admin.ModelAdmin):
     list_display = ('nome', 'preco', 'estoque', 'ativo', 'mais_vendido', 'promocao')
@@ -16,3 +16,4 @@ admin.site.register(Produtos,ProdutosAdmin)
 admin.site.register(ImagemProduto,ImagemProdutoAdmin)
 admin.site.register(MarcaProduto)
 admin.site.register(CategoriaProduto)
+admin.site.register(SubCategoriaProduto)

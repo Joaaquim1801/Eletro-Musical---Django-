@@ -1,0 +1,21 @@
+<div class="product-carousel">
+                        <div class="product-card">
+                            <span class="product-badge">Top Vendas</span>
+                            <img src="https://via.placeholder.com/280x250?text=Guitarra+Mais+Vendida" alt="Guitarra Clássica Nylon">
+                            <div class="product-info">
+                                <h3>Violão Acústico de Estudo</h3>
+                                <p class="product-price">R$ 750,00</p>
+                                <div class="product-actions">
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn minus">-</button>
+                                        <input type="text" value="1" class="quantity-input" readonly>
+                                        <button class="quantity-btn plus">+</button>
+                                    </div>
+                                    <button class="btn add-to-cart-btn">Comprar</button>
+                                </div>
+                            </div>
+                        </div>
+
+No html não é possível acessar a request, para isso eu tenho que enviar pela view uma variavel em formato de lista(marcas_selecionadas) que
+vai fazer a verificação das marcas em marcas_selecionadas.
+Essa marcas_selecionadas puxa da requisição a lista de marcas em marcas_lista_checkboxs, que fica na url "/catalogo/Cordas?marcas_lista_checkboxs=Strinberg"
