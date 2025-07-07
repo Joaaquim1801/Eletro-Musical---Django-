@@ -1,0 +1,188 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+{% load static %}
+<main>
+    {% include 'partials/_messages.html' %}
+    <div class="sub-header">
+        <ul class="categoria-lista">
+            <li class="category-item">
+                <a href="{% url 'catalogo' 'Cordas' %}">
+                    <img src="{% static 'assets/icons/cordas.png' %}">
+                    <span>Cordas</span>
+                </a>
+            </li>
+            <li class="category-item">
+                <a href="{% url 'catalogo' 'Percussão' %}">
+                    <img src="{% static 'assets/icons/percussao.png' %}">
+                    <span>Percussão</span>
+                </a>
+            </li>
+            <li class="category-item">
+                <a href="{% url 'catalogo' 'Teclas' %}">
+                    <img src="{% static 'assets/icons/teclas.png' %}">
+                    <span>Teclas</span>
+                </a>
+            </li>
+            <li class="category-item">
+                <a href="{% url 'catalogo' 'Acessórios'%}">
+                    <img src="{% static 'assets/icons/acessorios.png' %}">
+                    <span>Acessórios</span>
+                </a>
+            </li>
+            <li class="category-item">
+                <a href="{% url 'catalogo' 'Áudio'%}">
+                    <img src="{% static 'assets/icons/audio.png' %}">
+                    <span>Áudio</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="product-wrapper">
+        <div class="catalog-breadcrumb">
+            <a href="{% url 'landing' %}" class="breadcrumb-link breadcrumb-bold">Página Inicial</a> /
+            <a href="#" class="breadcrumb-link">{{ produto_objeto.subcategoria.nome }}</a>
+        </div>
+        <section class="product-detail">
+            <div class="product-container">
+                <div class="product-image-section">
+                    {% for imagem in produto_objeto.imagens.all %}
+                        {% if imagem.destaque %}
+                            <img src="{{ imagem.imagem.url }}" alt="{{ produto_objeto.nome }}" class="product-main-image" style="background:none;">
+                        {% endif %}
+                    {% endfor %}
+                    <div class="product-thumbnails">
+                        <img src="https://via.placeholder.com/80x80" alt="Thumbnail 1" class="thumbnail-item">
+                        <img src="https://via.placeholder.com/80x80?text=Img+2" alt="Thumbnail 2" class="thumbnail-item">
+                        <img src="https://via.placeholder.com/80x80?text=Img+3" alt="Thumbnail 3" class="thumbnail-item">
+                        <img src="https://via.placeholder.com/80x80?text=Img+4" alt="Thumbnail 4" class="thumbnail-item">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <a href="{% url 'catalogo' marca_produto %}" style="text-align:center; margin-bottom: 10px;">
+                        <img src="{% static 'assets/marcas/'|add:marca_produto|lower|add:'.png' %}" alt="{{ marca_produto }}" style="height:70px; max-width:120px; object-fit:contain; display:block; margin:0 auto;">
+                    </a>
+                    <h1>{{ produto_objeto.nome }}</h1>
+                    <div style="font-size:0.95em; color:#888; margin-bottom:8px; display:flex; gap:18px; align-items:center;">
+                        <span><strong>Marca:</strong> {{ marca_produto }}</span>
+                        <span><strong>Modelo:</strong> {{ produto_objeto.modelo }}</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                        <span style="font-size:1.3em; color:#ff6600;">★★★★★</span>
+                        <span style="font-size:0.95em; color:#888;">(0 avaliações)</span>
+                    </div>
+                    <a href="#" style="font-size:0.92em; color:#ff6600; text-decoration:underline; margin-bottom:10px; display:inline-block;">Seja o primeiro a opinar</a>
+                    <div class="old-price">de R$ {{ produto_objeto.preco_original }}</div>
+                    <div class="price">R$ {{ produto_objeto.preco }}</div>
+                    
+                    <div class="quantity-control" data-produto-id="{{ produto_objeto.id }}">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="text" value="1" class="quantity-input" readonly>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+
+                    
+                    <div class="product-actions">
+                        <form method="POST" action="{% url 'pagina_produto' produto_objeto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="acao" value="adicionar" id="botao-adicionar-carrinho" class="add-cart-btn">Adicionar ao carrinho</button>
+                        </form>
+                        <button onclick="abrirModal()" class="buy-btn">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-description">
+                <h2>Descrição</h2>
+                <p>{{ produto_objeto.descricao|linebreaksbr }}.</p>
+            </div>
+            <div class="related-products">
+                <h2>Produtos relacionados</h2>
+                <div class="related-products-container">
+                    {% for produto in produtos_relacionados %}
+                        <div class="related_products-card">
+                            {% if produto.imagens.exists %}
+                                {% for imagem in produto.imagens.all %}
+                                    {% if imagem.destaque %}
+                                        <img src="{{ imagem.imagem.url }}" alt="{{ produto.nome }}">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <div class="related_products-info">
+                            <h3>{{ produto.nome }}</h3>
+                            <p class="related_products-old-price">R${{ produto.preco_original }}</p>
+                            <p class="related_products-price">R${{ produto.preco }}</p>
+                            <a href="{% url 'pagina_produto' produto.id %}">
+                                <button class="related_products-btn">Comprar</button>
+                            </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+<script>
+    const control = document.querySelector('.quantity-control');
+    if (control) {
+        const produtoId = control.dataset.produtoId;
+        const input = control.querySelector('.quantity-input');
+        const minusBtn = control.querySelector('.minus');
+        const plusBtn = control.querySelector('.plus');
+        let quantidade = 1;
+
+        minusBtn.addEventListener('click', () => {
+            if (quantidade > 1) {
+                quantidade--;
+                input.value = quantidade;
+            }
+        });
+
+        plusBtn.addEventListener('click', () => {
+            quantidade++;
+            input.value = quantidade;
+        });
+
+        function adicionarAoCarrinho() {
+            fetch("{% url 'atualizar_quantidade' %}", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    produto_id: produtoId,
+                    quantidade: quantidade,
+                    acao: 'produto'
+                })
+            })
+            .then(response => response.json())
+        }
+
+        // Botão de adicionar
+        const botao = document.querySelector('#botao-adicionar-carrinho');
+        if (botao) {
+            botao.addEventListener('click', adicionarAoCarrinho);
+        }
+    }
+
+
+function abrirModal() {
+  const modal = document.getElementById('modalOverlay');
+  if (modal) {
+    modal.style.display = 'flex';
+  }
+}
+
+function fecharModal() {
+  const modal = document.getElementById('modalOverlay');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
+</script>
+
+{% include 'home/carrinho.html' %}
+
+</main>
+{% endblock %}

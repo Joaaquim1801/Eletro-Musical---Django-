@@ -1,6 +1,11 @@
-from django.shortcuts import render, redirect
-from home.models import Produtos, MarcaProduto, CategoriaProduto, SubCategoriaProduto
+from django.shortcuts import render, redirect, get_object_or_404
+from home.models import Produtos, MarcaProduto, CategoriaProduto, Carrinho
 from unidecode import unidecode
+from django.contrib import messages
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 CATEGORIAS = list(CategoriaProduto.objects.values_list('nome',flat=True)) #Sem o list ele não consegue iterar sobre
 def landing(request):
@@ -178,3 +183,46 @@ def buscar(request):
 
 def erro_busca(request):
     return render(request, 'home/erro_busca.html')
+
+def pagina_produto(request,produto_nome):
+    produto = Produtos.objects.get(id=produto_nome)
+    subcategoria_produto = produto.subcategoria.id
+    produtos_relacionados = Produtos.objects.filter(subcategoria=subcategoria_produto).exclude(id=produto.id).order_by('id')[:4]
+    marca =  ''.join([n.marca for n in produto.marcas.all()]) #Isso converte uma lista única em uma string
+
+    if request.method == "POST":
+        acao = request.POST.get("acao")
+        if acao == 'adicionar':
+            messages.success(request, f'Produto adicionado ao carrinho com sucesso')
+        
+        return redirect('pagina_produto', produto.id)
+
+    return render(request, 'home/pagina_produto.html',{'produto_objeto': produto, 'marca_produto': marca, 'produtos_relacionados': produtos_relacionados})
+
+@csrf_exempt
+def atualizar_quantidade(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        dados = json.loads(request.body)
+        produto_id = dados.get('produto_id')
+        quantidade = int(dados.get('quantidade', 1))
+        acao = dados.get('acao')
+
+        produto = Produtos.objects.get(id=produto_id)
+
+        carrinho_item, criado = Carrinho.objects.get_or_create(
+            user=request.user,
+            produto=produto,
+            defaults={'quantidade': quantidade}
+        )
+
+        if not criado:
+            if acao == "produto":
+                carrinho_item.quantidade += quantidade
+                carrinho_item.save()
+            else:
+                carrinho_item.quantidade = quantidade
+                carrinho_item.save()
+
+        return JsonResponse({'status': 'ok', 'quantidade': carrinho_item.quantidade})
+
+    return JsonResponse({'status': 'erro'}, status=400)

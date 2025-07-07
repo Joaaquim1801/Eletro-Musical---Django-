@@ -116,7 +116,9 @@
               <h3>{{ produto.nome }}</h3>
               <p class="catalog-old-price">R${{ produto.preco_original }}</p>
               <p class="catalog-price">R${{ produto.preco }}</p>
-              <button class="catalog-btn">Comprar</button>
+              <a href="{% url 'pagina_produto' produto.id %}"> <!-- É melhor produto.id, pois no template pagina_produto para filtrar é melhor-->
+                <button class="catalog-btn">Comprar</button>
+              </a>
             </div>
           </div>
           {% endfor %}

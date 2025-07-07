@@ -1,0 +1,91 @@
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <button class="fechar" onclick="fecharModal()">×</button>
+
+    <div class="cart-header">
+      <h1 class="product-name">Meu Carrinho</h1>
+      <p>Revise seus itens antes de finalizar</p>
+    </div>
+
+    <div class="cart-body">
+      {% for item_carrinho in itens_carrinho %}
+        <div class="cart-item">
+            <div class="item-image">
+                {% for imagem in item_carrinho.produto.imagens.all %}
+                    {% if imagem.destaque %}
+                        <img class="main-image" src="{{ imagem.imagem.url }}" alt="Imagem do produto" />
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="item-details">
+            <h3 class="item-title">{{ item_carrinho.produto.nome }}</h3>
+            <div class="item-price">
+                <span class="current-price">R$ {{ item_carrinho.produto.preco }}</span>
+            </div>
+            <div class="item-controls">
+                <div class="quantity-carrinho-control" data-produto-id="{{ item_carrinho.produto.id }}">
+                    <button class="quantity-carrinho-btn">−</button>
+                    <span class="quantity-carrinho-display">{{ item_carrinho.quantidade }}</span>
+                    <button class="quantity-carrinho-btn">+</button>
+                </div>
+                <button class="remove-btn"></button>
+            </div>
+            </div>
+        </div>
+      {% endfor %}
+
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span class="summary-label">Subtotal</span>
+        <span class="summary-value" id="subtotal">R$ {{ soma_produtos }}</span>
+      </div>
+      <div class="summary-row">
+        <span class="total-label">Total</span>
+        <span class="total-value" id="total">R$ {{ soma_produtos }}</span>
+      </div>
+    </div>
+
+    <div class="cart-actions">
+      <button class="btn btn-continue" onclick="fecharModal()">Continuar Comprando</button>
+      <button class="btn btn-checkout">Finalizar Compra</button>
+    </div>
+  </div>
+</div>
+<script>
+ document.querySelectorAll('.quantity-carrinho-control').forEach(control => {
+    const display = control.querySelector('.quantity-carrinho-display');
+    const botoes = control.querySelectorAll('.quantity-carrinho-btn');
+    const produtoId = control.dataset.produtoId;
+
+    let quantidade = parseInt(display.textContent);
+
+    botoes.forEach(botao => {
+        botao.addEventListener('click', () => {
+            const ehMais = botao.textContent.trim() === '+';
+
+            if (ehMais) {
+                quantidade++;
+            } else if (quantidade > 1) {
+                quantidade--;
+            }
+
+            display.textContent = quantidade;
+
+            // Envia para o backend
+            fetch('/atualizar_quantidade/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    produto_id: produtoId,
+                    quantidade: quantidade,
+                    acao: 'carrinho'
+                })
+            });
+        });
+    });
+});
+
+</script>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from unidecode import unidecode
+from django.contrib.auth.models import User
 
 class CategoriaProduto(models.Model):
     nome = models.CharField(max_length=100, null=False, blank=False)
@@ -73,3 +74,10 @@ class MarcaProduto(models.Model):
     def __str__(self):
         return f'Marca de {self.produto.nome}: {self.marca}'
     
+class Carrinho(models.Model):
+    produto = models.ForeignKey(Produtos, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantidade = models.PositiveBigIntegerField(default=1)
+    
+    def __str__(self):
+        return f'{self.produto.nome} - {self.quantidade}'

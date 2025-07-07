@@ -19,3 +19,10 @@
 No html não é possível acessar a request, para isso eu tenho que enviar pela view uma variavel em formato de lista(marcas_selecionadas) que
 vai fazer a verificação das marcas em marcas_selecionadas.
 Essa marcas_selecionadas puxa da requisição a lista de marcas em marcas_lista_checkboxs, que fica na url "/catalogo/Cordas?marcas_lista_checkboxs=Strinberg"
+
+{% static 'assets/marcas/'|add:marca_produto|lower|add:'.png' %}´
+'|add:marca_produto|lower|add:' -> isso serve para colocar uma variável dentro do static para buscar uma imagem em uma pasta
+
+<button onclick="abrirModal()" class="add-cart-btn">Adicionar ao carrinho</button>
+
+context_processors -> é uma ferramenta para passar informações em templates sem usar uma view, nesse caso ele é útil pois o _main.html é carregado em todos os templates
