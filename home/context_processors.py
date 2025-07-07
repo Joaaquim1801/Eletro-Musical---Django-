@@ -13,4 +13,4 @@ def itens_carrinho(request):
         preco = item.produto.preco * item.quantidade
         soma_produtos += preco
     soma_formatada = locale.currency(soma_produtos, grouping=True, symbol=False)
-    return {'itens_carrinho': itens, 'soma_produtos': soma_formatada}
+    return {'itens_carrinho': itens}

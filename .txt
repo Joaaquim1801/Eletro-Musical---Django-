@@ -26,3 +26,11 @@ Essa marcas_selecionadas puxa da requisição a lista de marcas em marcas_lista_
 <button onclick="abrirModal()" class="add-cart-btn">Adicionar ao carrinho</button>
 
 context_processors -> é uma ferramenta para passar informações em templates sem usar uma view, nesse caso ele é útil pois o _main.html é carregado em todos os templates
+
+import pywhatkit
+mensagem = """
+Produto: Guitarra Elétrica Giannini G-100 Translucent Red com escudo White (TRD/WH)
+Quantidade: 2
+Preço: R$1199,00
+"""
+pywhatkit.sendwhatmsg_instantly("***REMOVED***", mensagem, 15)

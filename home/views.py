@@ -208,6 +208,9 @@ def atualizar_quantidade(request):
         acao = dados.get('acao')
 
         produto = Produtos.objects.get(id=produto_id)
+        if acao == 'deletar':
+            Carrinho.objects.get(produto=produto).delete()
+            return JsonResponse({'status': 'ok', 'quantidade': 0})
 
         carrinho_item, criado = Carrinho.objects.get_or_create(
             user=request.user,
