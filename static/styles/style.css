@@ -1345,3 +1345,58 @@ nav a:hover {
     display: flex;
 }
 
+.product-description {
+    margin-top: 32px;
+    border-top: 1px solid #eee;
+    padding-top: 18px;
+}
+
+.accordion-section {
+    margin-bottom: 20px;
+}
+
+.accordion-header {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    color: #222;
+    cursor: pointer;
+    padding: 10px 0;
+    position: relative;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    color: #ff6600;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.accordion-header::after {
+    content: '▼';
+    font-size: 0.8em;
+    position: absolute;
+    right: 0;
+    transition: transform 0.3s ease;
+}
+
+.accordion-header.active::after {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    padding: 0 10px;
+}
+
+.accordion-content p {
+    font-size: 1.08em;
+    color: #555;
+    margin-top: 10px;
+}
+
+.accordion-content.active {
+    max-height: 500px; /* Adjust based on content height */
+    padding: 10px 10px;
+}

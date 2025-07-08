@@ -125,7 +125,9 @@
                                                 <input type="text" value="1" class="quantity-input" readonly>
                                                 <button class="quantity-btn plus">+</button>
                                             </div>
-                                            <button class="btn add-to-cart-btn">Comprar</button>
+                                            <a href="{% url 'pagina_produto' produto.id %}">
+                                                <button class="btn add-to-cart-btn">Comprar</button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +169,9 @@
                                                 <input type="text" value="1" class="quantity-input" readonly>
                                                 <button class="quantity-btn plus">+</button>
                                             </div>
-                                            <button class="btn add-to-cart-btn">Comprar</button>
+                                            <a href="{% url 'pagina_produto' produto.id %}">
+                                                 <button class="btn add-to-cart-btn">Comprar</button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

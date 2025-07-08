@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from unidecode import unidecode
 from django.contrib.auth.models import User
+from decimal import Decimal
 
 class CategoriaProduto(models.Model):
     nome = models.CharField(max_length=100, null=False, blank=False)
@@ -81,3 +82,15 @@ class Carrinho(models.Model):
     
     def __str__(self):
         return f'{self.produto.nome} - {self.quantidade}'
+    
+notas = [(f'{Decimal(str(x/2))}', f'{x/2}') for x in range(2,11)]
+
+class AvaliacoesProduto(models.Model):
+    produto = models.ForeignKey(Produtos, on_delete=models.CASCADE, related_name='avaliacoes')
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='minhas_avaliacoes')
+    nota = models.DecimalField(max_digits=2,decimal_places=1,choices=notas)
+    comentario = models.TextField()
+    criacao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.usuario.name} - {self.nota} {self.produto.nome}"

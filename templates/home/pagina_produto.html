@@ -91,8 +91,27 @@
                 </div>
             </div>
             <div class="product-description">
-                <h2>Descrição</h2>
-                <p>{{ produto_objeto.descricao|linebreaksbr }}.</p>
+                <div class="accordion-section">
+                    <div class="accordion-header" data-target="descricao-content">Descrição</div>
+                    <div class="accordion-content" id="descricao-content">
+                        <p>{{ produto_objeto.descricao|linebreaksbr }}.</p>
+                    </div>
+                </div>
+                <div class="accordion-section">
+                    <div class="accordion-header" data-target="avaliacoes-content">Avaliações</div>
+                    {% if logado %}
+                        <div class="accordion-content" id="avaliacoes-content">
+                            <p>(Nenhuma avaliação disponível. Seja o primeiro a opinar!)</p>
+                        </div>
+                    {% else %}
+                        <div class="accordion-content" id="avaliacoes-content">
+                            <p>Primeiro faça seu login para poder avaliar</p>
+                            <a href="{% url 'login' %}">
+                                 <button class="buy-btn">Faça seu Login</button>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
             <div class="related-products">
                 <h2>Produtos relacionados</h2>
@@ -122,6 +141,7 @@
     </div>
 
 <script>
+    // Controle de Quantidade, Botao de Adicionar ao Carrinho
     const control = document.querySelector('.quantity-control');
     if (control) {
         const produtoId = control.dataset.produtoId;
@@ -164,25 +184,47 @@
             botao.addEventListener('click', adicionarAoCarrinho);
         }
     }
+    //Descrição e Avaliações
+    document.addEventListener('DOMContentLoaded', function () {
+        const headers = document.querySelectorAll('.accordion-header');
 
+        headers.forEach(header => {
+            header.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const content = document.getElementById(targetId);
+                const isActive = this.classList.contains('active');
 
-function abrirModal() {
-  const modal = document.getElementById('modalOverlay');
-  if (modal) {
-    modal.style.display = 'flex';
-  }
-}
+                // Close all accordion contents
+                document.querySelectorAll('.accordion-content').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.accordion-header').forEach(item => {
+                    item.classList.remove('active');
+                });
 
-function fecharModal() {
-  const modal = document.getElementById('modalOverlay');
-  if (modal) {
-    modal.style.display = 'none';
-  }
-}
+                // Toggle the clicked section
+                if (!isActive) {
+                    this.classList.add('active');
+                    content.classList.add('active');
+                }
+            });
+
+            // Hover effect
+            header.addEventListener('mouseover', function () {
+                this.style.color = '#ff6600';
+                this.style.backgroundColor = '#f9f9f9';
+            });
+
+            header.addEventListener('mouseout', function () {
+                if (!this.classList.contains('active')) {
+                    this.style.color = '#222';
+                    this.style.backgroundColor = 'transparent';
+                }
+            });
+        });
+    });
 
 </script>
-
-{% include 'home/carrinho.html' %}
 
 </main>
 {% endblock %}

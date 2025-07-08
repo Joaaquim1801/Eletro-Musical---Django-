@@ -17,6 +17,186 @@
     <main>
         {% include 'partials/_main.html' %}
         {% block content %}{% endblock %}
+
+        <meta name="csrf-token" content="{{ csrf_token }}">
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <button class="fechar" onclick="fecharModal()">×</button>
+
+    <div class="cart-header">
+      <h1 class="product-name">Meu Carrinho</h1>
+      <p>Revise seus itens antes de finalizar</p>
+    </div>
+
+    <div class="cart-body">
+      {% for item_carrinho in itens_carrinho %}
+        <div class="cart-item">
+            <div class="item-image">
+                {% for imagem in item_carrinho.produto.imagens.all %}
+                    {% if imagem.destaque %}
+                        <img class="main-image" src="{{ imagem.imagem.url }}" alt="Imagem do produto" />
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="item-details">
+            <h3 class="item-title">{{ item_carrinho.produto.nome }}</h3>
+            <div class="item-price">
+                <span class="current-price">R$ {{ item_carrinho.produto.preco }}</span>
+            </div>
+            <div class="item-controls">
+                <div class="quantity-carrinho-control" data-produto-id="{{ item_carrinho.produto.id }}" data-preco="{{ item_carrinho.produto.preco }}">
+                    <button class="quantity-carrinho-btn">−</button>
+                    <span class="quantity-carrinho-display">{{ item_carrinho.quantidade }}</span>
+                    <button class="quantity-carrinho-btn">+</button>
+                </div>
+                <button data-produto-id="{{ item_carrinho.produto.id }}" class="remove-btn"></button>
+            </div>
+            </div>
+        </div>
+      {% endfor %}
+
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span class="summary-label">Subtotal</span>
+        <span class="summary-value" id="subtotal">R$ 0,00</span>
+      </div>
+      <div class="summary-row">
+        <span class="total-label">Total</span>
+        <span class="total-value" id="total">R$ 0,00</span>
+      </div>
+    </div>
+
+    <div class="cart-actions">
+      <button class="btn btn-continue" onclick="fecharModal()">Continuar Comprando</button>
+      <a href="{% url 'mandar_mensagem_whatsapp' %}">
+        <button class="btn btn-checkout">Finalizar Compra</button>
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+    function abrirModal() {
+        const modal = document.getElementById('modalOverlay');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    function fecharModal() {
+        const modal = document.getElementById('modalOverlay');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+    
+
+    document.addEventListener('DOMContentLoaded', () => {
+    atualizarTotalCarrinho();
+
+    document.querySelectorAll('.item-controls .quantity-carrinho-control').forEach(control => {
+        const display = control.querySelector('.quantity-carrinho-display');
+        const botoes = control.querySelectorAll('.quantity-carrinho-btn');
+        const produtoId = control.dataset.produtoId;
+
+        let quantidade = parseInt(display.textContent);
+
+        botoes.forEach(botao => {
+            botao.addEventListener('click', () => {
+                const ehMais = botao.textContent.trim() === '+';
+
+                if (ehMais) {
+                    quantidade++;
+                } else if (quantidade > 1) {
+                    quantidade--;
+                }
+
+                display.textContent = quantidade;
+
+                atualizarTotalCarrinho();
+
+                fetch('/atualizar_quantidade/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken // define isso via meta tag ou outra forma
+                    },
+                    body: JSON.stringify({
+                        produto_id: produtoId,
+                        quantidade: quantidade,
+                        acao: 'carrinho'
+                    })
+                });
+            });
+        });
+    });
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    document.querySelectorAll('.remove-btn').forEach(botao => {
+        botao.addEventListener('click', () => {
+            console.log('Botao Lixeira Clicado')
+            const produtoId = botao.dataset.produtoId;
+
+            fetch('/atualizar_quantidade/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken // já definido no seu script
+                },
+                body: JSON.stringify({
+                    produto_id: produtoId,
+                    acao: 'deletar'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    // Remover item da interface
+                    botao.closest('.cart-item').remove();
+                    atualizarTotalCarrinho();
+                }
+            });
+        });
+    });
+});
+
+function atualizarTotalCarrinho() {
+    let total = 0;
+
+    document.querySelectorAll('.item-controls .quantity-carrinho-control').forEach(control => {
+        const preco = parseFloat(control.dataset.preco.replace(',', '.'));
+        const quantidade = parseInt(control.querySelector('.quantity-carrinho-display').innerText);
+        total += preco * quantidade;
+    });
+    console.log('Total de .quantit-control encontrados:', document.querySelectorAll('.item-controls .quantity-carrinho-control').length);
+    document.getElementById('subtotal').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    document.getElementById('total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+}
+
+    // Seu JavaScript personalizado aqui - rodará apenas uma vez
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('modalOverlay');
+        
+        if (modal) {
+            // Sua lógica personalizada
+            modal.addEventListener('click', function(e) {
+                // Fechar clicando fora do modal
+                if (e.target === modal) {
+                    fecharModal();
+                }
+            });
+            
+            // Fechar com ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    fecharModal();
+                }
+            });
+            
+            // Qualquer outro JavaScript do modal aqui
+            console.log('Modal inicializado uma vez!');
+        }
+    });
+    </script>
+
     </main>
     <footer>
         {% include 'partials/_footer.html' %}

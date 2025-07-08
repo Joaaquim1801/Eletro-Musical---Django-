@@ -7,9 +7,15 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+import pywhatkit
+
 CATEGORIAS = list(CategoriaProduto.objects.values_list('nome',flat=True)) #Sem o list ele não consegue iterar sobre
 def landing(request):
 
+    if not request.user.is_authenticated:
+        messages.error(request,"ERRO! O usuário não fez login")
+        return render(request, 'home/landing.html',{'produtos_mais_vendidos': [], 'produtos_promocao': []})
+    
     produtos_top_vendas = Produtos.objects.filter(ativo=True, mais_vendido=True).order_by('-id')[:7]  # Obtém os 7 produtos mais recentes
     produtos_promocao = Produtos.objects.filter(ativo=True, promocao=True).order_by('-id')[:7]  # Obtém os 7 produtos em promoção mais recentes
     return render(request, 'home/landing.html',{'produtos_mais_vendidos': produtos_top_vendas, 'produtos_promocao': produtos_promocao})
@@ -229,3 +235,23 @@ def atualizar_quantidade(request):
         return JsonResponse({'status': 'ok', 'quantidade': carrinho_item.quantidade})
 
     return JsonResponse({'status': 'erro'}, status=400)
+
+def mandar_mensagem_whatsapp(request):
+
+    if not request.user.is_authenticated:
+        messages.error(request,"ERRO! O usuário não fez login")
+        return redirect('login')
+    
+    carrinho_itens =  list(Carrinho.objects.filter(user=request.user).distinct())
+    if carrinho_itens:
+        mensagens = ""
+        for carrinho_item in carrinho_itens:
+            mensagem = f"Produto: {carrinho_item.produto.nome}\n"
+            mensagem += f"Quantidade: {carrinho_item.quantidade}\n"
+            mensagem += f"Preço: {carrinho_item.produto.preco*carrinho_item.quantidade}\n"
+            mensagens += f"{mensagem}\n"
+        pywhatkit.sendwhatmsg_instantly("***REMOVED***", mensagens)
+        Carrinho.objects.filter(user=request.user).delete()
+    else:
+        messages.error(request,"ERRO! O carinho do usuário está vazio")
+    return redirect('landing')

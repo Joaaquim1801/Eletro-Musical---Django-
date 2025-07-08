@@ -48,7 +48,9 @@
 
     <div class="cart-actions">
       <button class="btn btn-continue" onclick="fecharModal()">Continuar Comprando</button>
-      <button class="btn btn-checkout">Finalizar Compra</button>
+      <a href="{% url 'mandar_mensagem_whatsapp' %}">
+        <button class="btn btn-checkout">Finalizar Compra</button>
+      </a>
     </div>
   </div>
 </div>
