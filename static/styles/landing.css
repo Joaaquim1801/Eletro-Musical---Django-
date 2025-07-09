@@ -605,7 +605,7 @@
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+    gap: 100px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -619,6 +619,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 400px;
 }
 
 .testimonial-card .stars {
@@ -641,36 +642,32 @@
     font-size: 1em;
     color: #555;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     overflow: hidden;
-    text-overflow: ellipsis; /* Para textos longos */
-    position: relative; /* Para o "fade" */
+    max-height: none;
+    transition: max-height 0.4s ease;
 }
 
-/* Para o efeito "Ver Mais", não queremos um limite de altura fixo no P principal */
-.testimonial-card .comment-text:not(.expanded) {
-    /* Max-height para o efeito de corte */
-    max-height: 4.8em; /* Aproximadamente 3 linhas * 1.6em de line-height */
+.testimonial-card .comment-text.collapsed {
+    max-height: 4.8em; /* ~3 linhas */
 }
 
+.testimonial-card .comment-text.expanded {
+    max-height: 1000px; /* grande o suficiente para mostrar tudo */
+}
 
-.testimonial-card .btn-toggle-comment {
-    background-color: transparent;
-    color: #ff6600;
+.btn-toggle-comment {
+    background: none;
     border: none;
+    color: #ff6600;
+    font-weight: bold;
     cursor: pointer;
-    text-align: left;
+    font-size: 0.95em;
     padding: 0;
-    margin-top: 10px;
-    font-size: 0.9em;
-    font-weight: 600;
-    align-self: flex-start; /* Alinha o botão à esquerda */
-    transition: color 0.2s ease;
+    margin-bottom: 10px;
 }
-
-.testimonial-card .btn-toggle-comment:hover {
-    color: #e65c00;
-    text-decoration: underline;
+.btn-toggle-comment:hover {
+    color: #cc5200;
 }
 
 .testimonial-card .customer-name {

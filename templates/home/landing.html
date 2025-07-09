@@ -237,39 +237,26 @@
             <section class="testimonials-section">
                 <h2>O Que Nossos Clientes Dizem</h2>
                 <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="comment-date">20 de Junho de 2025</p>
-                        <p class="comment-text">"Comprei um violão e a qualidade superou minhas expectativas! Atendimento excelente e entrega rápida. Recomendo a todos os músicos!"
-                            <span class="full-comment-text" style="display: none;"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
-                        </p>
-                        <button class="btn-toggle-comment">Ver Mais</button>
-                        <p class="customer-name">- João Silva</p>
+                {% for avaliacao in avaliacoes %}
+                <div class="testimonial-card">
+                    <div class="stars">
+                        {% for i in '12345' %}
+                            {% if forloop.counter <= avaliacao.nota %}
+                                <i class="fas fa-star" style="color: gold;"></i>
+                            {% else %}
+                                <i class="fas fa-star" style="color: #ccc;"></i>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                        </div>
-                        <p class="comment-date">15 de Junho de 2025</p>
-                        <p class="comment-text">"O teclado chegou em perfeito estado e o suporte pós-venda foi muito atencioso. A loja é muito confiável e tem ótimos preços."
-                            <span class="full-comment-text" style="display: none;"> Outro trecho de comentário mais longo para testar a funcionalidade de ver mais e ver menos. É importante que o conteúdo seja realista para demonstrar o recurso adequadamente.</span>
-                        </p>
-                        <button class="btn-toggle-comment">Ver Mais</button>
-                        <p class="customer-name">- Maria Souza</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="comment-date">10 de Junho de 2025</p>
-                        <p class="comment-text">"Loja com grande variedade! Encontrei tudo o que precisava para minha bateria. A entrega demorou um pouco, mas valeu a pena pela qualidade."
-                            <span class="full-comment-text" style="display: none;">Este é um comentário que pode ser um pouco mais curto, para mostrar que o botão "Ver Mais" só aparece quando o conteúdo é realmente extenso, ou que o "Ver Menos" funciona.</span>
-                        </p>
-                        <button class="btn-toggle-comment">Ver Mais</button>
-                        <p class="customer-name">- Pedro Santos</p>
-                    </div>
+                    <p class="comment-date">{{ avaliacao.criacao|date:"d \d\e F \d\e Y" }}</p>
+                    <p class="comment-text collapsed">
+                        "{{ avaliacao.comentario }}"
+                    </p>
+                    <button class="btn-toggle-comment">Ver Mais</button>
+                    <p class="customer-name">- {{ avaliacao.usuario.username }}</p>
+                </div>
+                {% endfor %}
+
                 </div>
             </section>
 
@@ -284,5 +271,22 @@
 
         </section>
     </main>
-    <script src="{% static 'js/landing/landing.js' %}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".btn-toggle-comment");
+
+        buttons.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                const comment = btn.previousElementSibling;
+
+                comment.classList.toggle("expanded");
+                comment.classList.toggle("collapsed");
+
+                btn.textContent = comment.classList.contains("expanded")
+                    ? "Ver Menos"
+                    : "Ver Mais";
+            });
+        });
+    });
+    </script>
 {% endblock %}

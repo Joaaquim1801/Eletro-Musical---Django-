@@ -108,35 +108,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // Funcionalidade "Ver Mais/Ver Menos" para Depoimentos
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggleButtons = document.querySelectorAll('.btn-toggle-comment');
-
-            toggleButtons.forEach(button => {
-                const commentTextElement = button.previousElementSibling; // O parágrafo com o texto
-                const fullCommentTextSpan = commentTextElement.querySelector('.full-comment-text');
-
-                // Verifica se o texto é longo o suficiente para precisar do "Ver Mais"
-                // e se há um span para o texto completo
-                if (fullCommentTextSpan && (commentTextElement.textContent.length - fullCommentTextSpan.textContent.length) > 100) {
-                    button.style.display = 'inline-block'; // Mostra o botão
-                    commentTextElement.classList.add('truncated'); // Adiciona classe para truncar se for o caso
-                } else {
-                    button.style.display = 'none'; // Esconde o botão se o texto não é longo
-                    commentTextElement.classList.remove('truncated'); // Remove classe se não truncar
-                }
-
-                button.addEventListener('click', () => {
-                    if (fullCommentTextSpan) {
-                        if (fullCommentTextSpan.style.display === 'none') {
-                            fullCommentTextSpan.style.display = 'inline';
-                            button.textContent = 'Ver Menos';
-                            commentTextElement.classList.remove('truncated'); // Remove truncagem ao expandir
-                        } else {
-                            fullCommentTextSpan.style.display = 'none';
-                            button.textContent = 'Ver Mais';
-                            commentTextElement.classList.add('truncated'); // Adiciona truncagem ao minimizar
-                        }
-                    }
-                });
-            });
-        });

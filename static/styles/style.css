@@ -1211,6 +1211,21 @@ nav a:hover {
     flex-wrap: wrap;
 }
 
+.customer-comments {
+    margin-top: 40px;
+    padding: 20px 40px; /* Ajuste o espaçamento lateral conforme necessário */
+    border-top: 1px solid #eee;
+    text-align: left;
+}
+
+.customer-comments h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 20px;
+    padding-left: 20rem; /* Opcional, para dar um leve recuo */
+}
+
 .related_products-card {
     border: 1px solid #eee;
     border-radius: 10px;
@@ -1293,6 +1308,7 @@ nav a:hover {
 }
 
 
+
 .cart-link {
     text-decoration: none;
     color: white;
@@ -1345,12 +1361,6 @@ nav a:hover {
     display: flex;
 }
 
-.product-description {
-    margin-top: 32px;
-    border-top: 1px solid #eee;
-    padding-top: 18px;
-}
-
 .accordion-section {
     margin-bottom: 20px;
 }
@@ -1400,3 +1410,4 @@ nav a:hover {
     max-height: 500px; /* Adjust based on content height */
     padding: 10px 10px;
 }
+

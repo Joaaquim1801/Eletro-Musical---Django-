@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Produtos, MarcaProduto, CategoriaProduto, Carrinho
+from home.models import Produtos, MarcaProduto, CategoriaProduto, Carrinho,AvaliacoesProduto
 from unidecode import unidecode
 from django.contrib import messages
 
@@ -9,16 +9,17 @@ import json
 
 import pywhatkit
 
+from home.forms import AvaliacoesProdutoForms
+
+from math import floor,ceil
+
 CATEGORIAS = list(CategoriaProduto.objects.values_list('nome',flat=True)) #Sem o list ele não consegue iterar sobre
 def landing(request):
-
-    if not request.user.is_authenticated:
-        messages.error(request,"ERRO! O usuário não fez login")
-        return render(request, 'home/landing.html',{'produtos_mais_vendidos': [], 'produtos_promocao': []})
     
     produtos_top_vendas = Produtos.objects.filter(ativo=True, mais_vendido=True).order_by('-id')[:7]  # Obtém os 7 produtos mais recentes
     produtos_promocao = Produtos.objects.filter(ativo=True, promocao=True).order_by('-id')[:7]  # Obtém os 7 produtos em promoção mais recentes
-    return render(request, 'home/landing.html',{'produtos_mais_vendidos': produtos_top_vendas, 'produtos_promocao': produtos_promocao})
+    avaliacoes = AvaliacoesProduto.objects.filter(nota__in=[3,4,5]).order_by('id')[:3]
+    return render(request, 'home/landing.html',{'produtos_mais_vendidos': produtos_top_vendas, 'produtos_promocao': produtos_promocao, 'avaliacoes':avaliacoes})
 
 def catalogo(request, filtro_produto):
 
@@ -191,19 +192,45 @@ def erro_busca(request):
     return render(request, 'home/erro_busca.html')
 
 def pagina_produto(request,produto_nome):
+
     produto = Produtos.objects.get(id=produto_nome)
     subcategoria_produto = produto.subcategoria.id
     produtos_relacionados = Produtos.objects.filter(subcategoria=subcategoria_produto).exclude(id=produto.id).order_by('id')[:4]
     marca =  ''.join([n.marca for n in produto.marcas.all()]) #Isso converte uma lista única em uma string
+    quantidade_avaliacoes = AvaliacoesProduto.objects.filter(produto=produto).distinct().count()
 
+    lista_avaliacoes = [int(avaliacao.nota) for avaliacao in AvaliacoesProduto.objects.filter(produto=produto)]
+    media_avaliacoes = sum(lista_avaliacoes)/len(lista_avaliacoes) if len(lista_avaliacoes) > 0 else 0
+    if round(media_avaliacoes) <= floor(media_avaliacoes) + 0.5:
+        media_avaliacoes = floor(media_avaliacoes)
+    else:
+        media_avaliacoes = ceil(media_avaliacoes) 
+
+    avaliacoes = AvaliacoesProduto.objects.filter(produto=produto).order_by('id')[:3]
+    form = AvaliacoesProdutoForms()
     if request.method == "POST":
         acao = request.POST.get("acao")
-        if acao == 'adicionar':
+        if acao == 'adicionar' and request.user.is_authenticated:
             messages.success(request, f'Produto adicionado ao carrinho com sucesso')
-        
-        return redirect('pagina_produto', produto.id)
+        elif acao == 'avaliacao':
+            form = AvaliacoesProdutoForms(request.POST)
+            nota = request.POST.get("nota")
+            if form.is_valid():
 
-    return render(request, 'home/pagina_produto.html',{'produto_objeto': produto, 'marca_produto': marca, 'produtos_relacionados': produtos_relacionados})
+                comentario = form.cleaned_data['comentario']
+
+                AvaliacoesProduto.objects.create(
+                    usuario=request.user,
+                    produto=produto,
+                    nota=int(nota),
+                    comentario=comentario
+                )
+                messages.success(request, f'Avaliação feita com sucesso')
+                return redirect('pagina_produto', produto_nome=produto.id)
+            
+        elif not request.user.is_authenticated:
+            messages.error(request, "Primeiro faça login para conseguir adicionar ao carrinho")
+    return render(request, 'home/pagina_produto.html',{'produto_objeto': produto, 'marca_produto': marca, 'produtos_relacionados': produtos_relacionados, 'forms': form,'quantidade_avaliacoes': quantidade_avaliacoes, 'media_avaliacoes':media_avaliacoes, 'avaliacoes':avaliacoes})
 
 @csrf_exempt
 def atualizar_quantidade(request):
@@ -233,16 +260,12 @@ def atualizar_quantidade(request):
                 carrinho_item.save()
 
         return JsonResponse({'status': 'ok', 'quantidade': carrinho_item.quantidade})
-
     return JsonResponse({'status': 'erro'}, status=400)
 
 def mandar_mensagem_whatsapp(request):
 
-    if not request.user.is_authenticated:
-        messages.error(request,"ERRO! O usuário não fez login")
-        return redirect('login')
-    
-    carrinho_itens =  list(Carrinho.objects.filter(user=request.user).distinct())
+   
+    carrinho_itens = list(Carrinho.objects.filter(user=request.user).distinct())
     if carrinho_itens:
         mensagens = ""
         for carrinho_item in carrinho_itens:

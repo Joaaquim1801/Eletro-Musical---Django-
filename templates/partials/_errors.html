@@ -1,5 +1,5 @@
-{% if form.errors %}
-    {% for field in form %}
+{% if forms.errors %}
+    {% for field in forms %}
         {% for error in field.errors %}    
         <div 
             x-data="{ show: true }" 
@@ -13,7 +13,7 @@
         </div>
         {% endfor %}
     {% endfor %}
-    {% for error in form.non_field_errors %}
+    {% for error in forms.non_field_errors %}
     <div 
             x-data="{ show: true }" 
             x-init="setTimeout(() => show = true, 200); setTimeout(() => show = false, 6000)"

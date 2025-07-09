@@ -89,7 +89,7 @@ class AvaliacoesProduto(models.Model):
     produto = models.ForeignKey(Produtos, on_delete=models.CASCADE, related_name='avaliacoes')
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='minhas_avaliacoes')
     nota = models.DecimalField(max_digits=2,decimal_places=1,choices=notas)
-    comentario = models.TextField()
+    comentario = models.TextField(blank=False)
     criacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

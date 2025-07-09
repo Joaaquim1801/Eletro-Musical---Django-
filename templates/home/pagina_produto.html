@@ -3,6 +3,7 @@
 {% load static %}
 <main>
     {% include 'partials/_messages.html' %}
+    {% include 'partials/_errors.html' %}
     <div class="sub-header">
         <ul class="categoria-lista">
             <li class="category-item">
@@ -67,8 +68,16 @@
                         <span><strong>Modelo:</strong> {{ produto_objeto.modelo }}</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                        <span style="font-size:1.3em; color:#ff6600;">★★★★★</span>
-                        <span style="font-size:0.95em; color:#888;">(0 avaliações)</span>
+                    <div class="stars">
+                        {% for i in '12345' %}
+                            {% if forloop.counter <= media_avaliacoes %}
+                                <i class="fas fa-star" style="color: gold;"></i>
+                            {% else %}
+                                <i class="fas fa-star" style="color: #ccc;"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                        <span style="font-size:0.95em; color:#888;">{{ quantidade_avaliacoes }} avaliação(ões)</span>
                     </div>
                     <a href="#" style="font-size:0.92em; color:#ff6600; text-decoration:underline; margin-bottom:10px; display:inline-block;">Seja o primeiro a opinar</a>
                     <div class="old-price">de R$ {{ produto_objeto.preco_original }}</div>
@@ -79,8 +88,7 @@
                         <input type="text" value="1" class="quantity-input" readonly>
                         <button class="quantity-btn plus">+</button>
                     </div>
-
-                    
+        
                     <div class="product-actions">
                         <form method="POST" action="{% url 'pagina_produto' produto_objeto.id %}">
                             {% csrf_token %}
@@ -101,7 +109,56 @@
                     <div class="accordion-header" data-target="avaliacoes-content">Avaliações</div>
                     {% if logado %}
                         <div class="accordion-content" id="avaliacoes-content">
-                            <p>(Nenhuma avaliação disponível. Seja o primeiro a opinar!)</p>
+                            Faça sua avaliação para ajudar outras pessoas!
+                            <form method="POST">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 8px;"></div>
+                                    {% csrf_token %}
+
+                                    <div style="width: 100%; max-width: 500px;">
+                                        <small style="display: block; margin-bottom: 4px; color: #666; font-family: 'Poppins', sans-serif;">Sua nota:</small>
+                                        <div id="estrelas" class="estrelas" style="margin-bottom: 10px;">
+                                            {% for i in "12345" %}
+                                                <span class="estrela" data-valor="{{ i }}">&#9733;</span>
+                                            {% endfor %}
+                                            <input type="hidden" name="nota" id="nota-avaliacao" value="0">
+                                        </div>
+                                    </div>
+
+                                    <small style="display: block; margin-bottom: 4px; color: #666; font-family: 'Poppins', sans-serif;">Comentário:</small>
+                                    <div class="form-group">
+                                        {{ forms.comentario }}
+                                    <button type="submit" name="acao" value="avaliacao" class="buy-btn">Enviar Avaliação</button>
+                                </div>
+                            </form>
+                            <style>
+                                .estrela {
+                                    font-size: 28px;
+                                    cursor: pointer;
+                                    color: #ccc;
+                                    transition: color 0.2s;
+                                }
+
+                                .estrela.ativa {
+                                    color: gold;
+                                }
+                                .comentario-textarea {
+                                    width: 100%;
+                                    height: 120px;
+                                    padding: 12px;
+                                    font-size: 14px;
+                                    border: 1px solid #ccc;
+                                    border-radius: 6px;
+                                    resize: vertical;
+                                    box-shadow: none;
+                                    transition: border-color 0.3s;
+                                    margin-bottom: 15px;
+                                }
+
+                                .comentario-textarea:focus {
+                                    border-color: #ff6600;
+                                    outline: none;
+                                }
+                            </style>
                         </div>
                     {% else %}
                         <div class="accordion-content" id="avaliacoes-content">
@@ -112,31 +169,55 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
-            <div class="related-products">
-                <h2>Produtos relacionados</h2>
-                <div class="related-products-container">
-                    {% for produto in produtos_relacionados %}
-                        <div class="related_products-card">
-                            {% if produto.imagens.exists %}
-                                {% for imagem in produto.imagens.all %}
-                                    {% if imagem.destaque %}
-                                        <img src="{{ imagem.imagem.url }}" alt="{{ produto.nome }}">
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                            <div class="related_products-info">
-                            <h3>{{ produto.nome }}</h3>
-                            <p class="related_products-old-price">R${{ produto.preco_original }}</p>
-                            <p class="related_products-price">R${{ produto.preco }}</p>
-                            <a href="{% url 'pagina_produto' produto.id %}">
-                                <button class="related_products-btn">Comprar</button>
-                            </a>
+                <div class="related-products">
+                    <h2>Produtos relacionados</h2>
+                    <div class="related-products-container">
+                        {% for produto in produtos_relacionados %}
+                            <div class="related_products-card">
+                                {% if produto.imagens.exists %}
+                                    {% for imagem in produto.imagens.all %}
+                                        {% if imagem.destaque %}
+                                            <img src="{{ imagem.imagem.url }}" alt="{{ produto.nome }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="related_products-info">
+                                <h3>{{ produto.nome }}</h3>
+                                <p class="related_products-old-price">R${{ produto.preco_original }}</p>
+                                <p class="related_products-price">R${{ produto.preco }}</p>
+                                <a href="{% url 'pagina_produto' produto.id %}">
+                                    <button class="related_products-btn">Comprar</button>
+                                </a>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
                 </div>
             </div>
+            </div>
+            <section class="customer-comments">
+                <h2>Comentários</h2>
+                <div class="testimonials-grid">
+                    {% for avaliacao in avaliacoes %}
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            {% for i in '12345' %}
+                                {% if forloop.counter <= avaliacao.nota %}
+                                    <i class="fas fa-star" style="color: gold;"></i>
+                                {% else %}
+                                    <i class="fas fa-star" style="color: #ccc;"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <p class="comment-date">{{ avaliacao.criacao|date:"d \d\e F \d\e Y" }}</p>
+                        <p class="comment-text collapsed">
+                            "{{ avaliacao.comentario }}"
+                        </p>
+                        <button class="btn-toggle-comment">Ver Mais</button>
+                        <p class="customer-name">- {{ avaliacao.usuario.username }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
         </section>
     </div>
 
@@ -184,6 +265,7 @@
             botao.addEventListener('click', adicionarAoCarrinho);
         }
     }
+
     //Descrição e Avaliações
     document.addEventListener('DOMContentLoaded', function () {
         const headers = document.querySelectorAll('.accordion-header');
@@ -220,6 +302,32 @@
                     this.style.color = '#222';
                     this.style.backgroundColor = 'transparent';
                 }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const estrelas = document.querySelectorAll('.estrela');
+        const inputNota = document.getElementById('nota-avaliacao');
+        let notaSelecionada = 0;
+
+        estrelas.forEach(estrela => {
+            estrela.addEventListener('mouseover', () => {
+                const valor = parseInt(estrela.dataset.valor);
+                estrelas.forEach(e => {
+                    e.classList.toggle('ativa', parseInt(e.dataset.valor) <= valor);
+                });
+            });
+
+            estrela.addEventListener('mouseout', () => {
+                estrelas.forEach(e => {
+                    e.classList.toggle('ativa', parseInt(e.dataset.valor) <= notaSelecionada);
+                });
+            });
+
+            estrela.addEventListener('click', () => {
+                notaSelecionada = parseInt(estrela.dataset.valor);
+                inputNota.value = notaSelecionada;
             });
         });
     });
