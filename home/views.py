@@ -273,7 +273,7 @@ def mandar_mensagem_whatsapp(request):
             mensagem += f"Quantidade: {carrinho_item.quantidade}\n"
             mensagem += f"Preço: {carrinho_item.produto.preco*carrinho_item.quantidade}\n"
             mensagens += f"{mensagem}\n"
-        pywhatkit.sendwhatmsg_instantly("***REMOVED***", mensagens)
+        pywhatkit.sendwhatmsg_instantly("5511999999999", mensagens)
         Carrinho.objects.filter(user=request.user).delete()
     else:
         messages.error(request,"ERRO! O carinho do usuário está vazio")
