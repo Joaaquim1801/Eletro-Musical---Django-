@@ -52,7 +52,7 @@ Este projeto foi criado com o propósito de testar conhecimentos em Django e ela
 
 1. **Clone o repositório**
 ```bash
-git clone [https://github.com/Joaaquim1801/Eletro-Musical---Django-]
+git clone https://github.com/Joaaquim1801/Eletro-Musical---Django-
 ```
 
 2. **Crie e ative o ambiente virtual**
