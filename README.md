@@ -161,7 +161,7 @@ Acesse /admin/ para gerenciar:
 # 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 # 📞 Contato
-Joaquim Maia - joaquimaiafilho2018@gmail.com
-Link do Projeto: https://github.com/Joaaquim1801/Eletro-Musical---Django-/
+* Joaquim Maia - joaquimaiafilho2018@gmail.com
+* Link do Projeto: https://github.com/Joaaquim1801/Eletro-Musical---Django-/
 
 ⭐ Se este projeto te ajudou, considere dar uma estrela no repositório!
